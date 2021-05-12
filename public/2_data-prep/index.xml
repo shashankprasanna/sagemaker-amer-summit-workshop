@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2. Data Preparation on Getting Started with Amazon SageMaker Studio</title>
+    <link>/2_data-prep.html</link>
+    <description>Recent content in 2. Data Preparation on Getting Started with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/2_data-prep/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2.1 Data Preparation with Amazon SageMaker Studio Notebook</title>
+      <link>/2_data-prep/dataprep_studio_notebook.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/2_data-prep/dataprep_studio_notebook.html</guid>
+      <description>How to run this section To run this section of the workshop, read the instruction above each code cell, copy the code and paste it in the Jupyter notebook cell, and click run to execute the code.
+Data preparation with SageMaker Studio Notebook Import required libraries # Importing required libraries. import pandas as pd import numpy as np import seaborn as sns #visualisation import matplotlib.pyplot as plt #visualisation %matplotlib inline sns.</description>
+    </item>
+    
+    <item>
+      <title>2.2 Data Analysis with SageMaker Data Wrangler</title>
+      <link>/2_data-prep/dataanalysis_datawrangler.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/2_data-prep/dataanalysis_datawrangler.html</guid>
+      <description>Amazon SageMaker Data Wrangler reduces the time it takes to aggregate and prepare data for machine learning (ML). With SageMaker Data Wrangler, you can simplify the process of data preparation and feature engineering, and complete each step of the data preparation workflow, including data selection, cleansing, exploration, and visualization from a single visual interface.
+In this section we&amp;rsquo;ll use Data Wrangler to generate bias reports and pre-process our training dataset.</description>
+    </item>
+    
+    <item>
+      <title>2.3 Data Preparation with SageMaker Data Wrangler</title>
+      <link>/2_data-prep/dataprep_datawrangler.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/2_data-prep/dataprep_datawrangler.html</guid>
+      <description>You can also use Data Wrangler to perform a number of dataset transformations visually without writing any code. Operations include encoding categorical variables, featurizing date/time and text columns, handling missing data, manipulating columns (renaming, moving), managing rows, validating strings etc.
+Let&amp;rsquo;s start by launching the transform view You should see a full list of transformations available to you on the right. We&amp;rsquo;ll peform the following 3 transformations
+ Remove the ID column as it&amp;rsquo;s not informative when building an ML model Rename the label column from default payment next month to a more readable LABEL Move the label to the first column position, since this is the format our ML algorithm expects during training  Drop the ID column Click on Manage columns &amp;gt; Transform &amp;gt; Drop Column and choose ID under Column to drop.</description>
+    </item>
+    
+  </channel>
+</rss>

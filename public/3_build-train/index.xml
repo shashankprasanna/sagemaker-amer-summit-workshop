@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>3. Build, train and tune ML models on Getting Started with Amazon SageMaker Studio</title>
+    <link>/3_build-train.html</link>
+    <description>Recent content in 3. Build, train and tune ML models on Getting Started with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/3_build-train/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>3.1 Train an XGBoost model</title>
+      <link>/3_build-train/train_xgboost_model.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/3_build-train/train_xgboost_model.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ Import necessary packages import os import json import time import pandas as pd from IPython.display import FileLink, FileLinks import s3fs import boto3 from sklearn.model_selection import train_test_split import sagemaker from sagemaker import clarify from sagemaker.session import Session from sagemaker.inputs import TrainingInput from sagemaker.xgboost.estimator import XGBoost from sagemaker.debugger import Rule, rule_configs Set region, boto3 and SageMaker SDK variables #You can change this to a region of your choice region = sagemaker.</description>
+    </item>
+    
+    <item>
+      <title>3.2 Hyperparameter tuning and bias mitigation</title>
+      <link>/3_build-train/hyperparametertune_xgboost_model.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/3_build-train/hyperparametertune_xgboost_model.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ In this section we&amp;rsquo;ll train a second model fix the gender imbalance in the dataset using SMOTE and train the model using XGBoost with hyperparameter tuning and Debugger. We will also save this modelto our registry and eventually approved for deployment.
+Import necessary packages !pip install imbalanced-learn==0.7.0 -qimport json import boto3 import numpy as np import pandas as pd import matplotlib.</description>
+    </item>
+    
+  </channel>
+</rss>

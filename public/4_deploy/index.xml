@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>4. Deploy ML models on Getting Started with Amazon SageMaker Studio</title>
+    <link>/4_deploy.html</link>
+    <description>Recent content in 4. Deploy ML models on Getting Started with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/4_deploy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>4.1 Deploy XGBoost model</title>
+      <link>/4_deploy/deploy_xgboost_model.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/4_deploy/deploy_xgboost_model.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ Import necessary packages import json import time import s3fs import boto3 import pandas as pd import sagemaker from sagemaker.s3 import S3Downloader from sagemaker.model_monitor.dataset_format import DatasetFormat from sagemaker.model_monitor import DataCaptureConfig, DefaultModelMonitor# Set region, boto3 and SageMaker SDK variables¶ #You can change this to a region of your choice region = sagemaker.Session().boto_region_name print(&amp;#34;Using AWS Region: {}&amp;#34;.format(region)) boto3.setup_default_session(region_name=region) boto_session = boto3.</description>
+    </item>
+    
+  </channel>
+</rss>

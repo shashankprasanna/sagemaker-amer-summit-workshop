@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>3. Build, train and tune ML models on Deep learning with Amazon SageMaker Studio</title>
+    <link>/2_build-train.html</link>
+    <description>Recent content in 3. Build, train and tune ML models on Deep learning with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/2_build-train/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Train and tune an XGBoost model</title>
+      <link>/2_build-train/builtin_cifar10.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/2_build-train/builtin_cifar10.html</guid>
+      <description>Step 1 - Launch SageMaker Studio Notebook Once you launch SageMaker Studio follow the instructions below to start a notebook.
+A. Go to File-&amp;gt; New Launcher B. Select MXNET Optimized for GPU C. Select Python 3 Step 2 - Setting up Permissions and environment variables In this step we setup some prequisites so our notebook can authenticate and link to other AWS Services.
+There are 3 parts to this:  Define the S3 bucket that you want to use for training and model data.</description>
+    </item>
+    
+  </channel>
+</rss>

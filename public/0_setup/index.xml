@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>1. Setup on Deep learning with Amazon SageMaker Studio</title>
+    <link>/0_setup.html</link>
+    <description>Recent content in 1. Setup on Deep learning with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/0_setup/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Setup Amazon SageMaker Studio</title>
+      <link>/0_setup/studio_setup.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/0_setup/studio_setup.html</guid>
+      <description>Step 1. Log in to the Amazon SageMaker console  Open the AWS Management Console in a new window, so you can keep this tutorial open. In the AWS Console search bar, type SageMaker and select Amazon SageMaker to open the service console.  Step 2. Set up Amazon SageMaker Studio In this step, you&amp;#39;ll setup Amazon SageMaker Studio. The SageMaker Studio Notebooks within Studio
+are one-click Jupyter notebooks and contain everything you need to build and test your training scripts.</description>
+    </item>
+    
+  </channel>
+</rss>

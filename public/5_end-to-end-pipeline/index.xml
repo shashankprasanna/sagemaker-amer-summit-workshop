@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>5. End-to-end ML Pipelines on Getting Started with Amazon SageMaker Studio</title>
+    <link>/5_end-to-end-pipeline.html</link>
+    <description>Recent content in 5. End-to-end ML Pipelines on Getting Started with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/5_end-to-end-pipeline/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>5.1 Automating end-to-end ML pipelines</title>
+      <link>/5_end-to-end-pipeline/end-to-end-ml-pipeline.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/5_end-to-end-pipeline/end-to-end-ml-pipeline.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ import json import time import pathlib import numpy as np import pandas as pd from time import gmtime, strftime import boto3 import sagemaker from sagemaker.inputs import TrainingInput from sagemaker.processing import ProcessingInput, ProcessingOutput, FeatureStoreOutput from sagemaker.workflow.pipeline import Pipeline from sagemaker.sklearn.processing import SKLearnProcessor from sagemaker.workflow.step_collections import RegisterModel from sagemaker.feature_store.feature_group import FeatureGroup from sagemaker.workflow.parameters import ParameterInteger, ParameterFloat, ParameterString from sagemaker.</description>
+    </item>
+    
+  </channel>
+</rss>

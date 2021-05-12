@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>5. Clean up resources on Deep learning with Amazon SageMaker Studio</title>
+    <link>/4_clean-up.html</link>
+    <description>Recent content in 5. Clean up resources on Deep learning with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/4_clean-up/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Clean up resources</title>
+      <link>/4_clean-up/tensorflow_cifar10.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/4_clean-up/tensorflow_cifar10.html</guid>
+      <description> TBD </description>
+    </item>
+    
+  </channel>
+</rss>

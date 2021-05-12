@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:title" content="distributed-training-workshop.go-aws.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://distributed-training-workshop.go-aws.com" />
+    <meta property="og:image" content="https://distributed-training-workshop.go-aws.com/images/intro/home.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.59.0" />
+    <meta name="description" content="Getting Started with Amazon SageMaker Studio">
+<meta name="author" content="Shashank Prasanna">
+
+    <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="../../images/favicon.ico" type="image/x-icon" />
+
+    {0xc000728f00 0xc0005cf180}
+    <title>5.1 Automating end-to-end ML pipelines :: Getting Started with Amazon SageMaker Studio</title>
+
+    
+    <link href="../../css/nucleus.css?1619168107" rel="stylesheet">
+    <link href="../../css/fontawesome-all.min.css?1619168107" rel="stylesheet">
+    <link href="../../css/hybrid.css?1619168107" rel="stylesheet">
+    <link href="../../css/featherlight.min.css?1619168107" rel="stylesheet">
+    <link href="../../css/perfect-scrollbar.min.css?1619168107" rel="stylesheet">
+    <link href="../../css/auto-complete.css?1619168107" rel="stylesheet">
+    <link href="../../css/theme.css?1619168107" rel="stylesheet">
+    <link href="../../css/hugo-theme.css?1619168107" rel="stylesheet">
+    <link href="../../css/jquery-ui.min.css?1619168107" rel="stylesheet">
+    
+      <link href="../../css/theme-mine.css?1619168107" rel="stylesheet">
+    
+
+    <script src="../../js/jquery-3.3.1.min.js?1619168107"></script>
+    <script src="../../js/jquery-ui-1.12.1.min.js?1619168107"></script>
+
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/amp/5_end-to-end-pipeline/end-to-end-ml-pipeline.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="../../" title="Go home"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" width="60%" style="padding:20px 0px;"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg></a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="../../js/lunr.min.js?1619168107"></script>
+<script type="text/javascript" src="../../js/auto-complete.js?1619168107"></script>
+<script type="text/javascript">
+    
+        var baseurl = "";
+    
+</script>
+<script type="text/javascript" src="../../js/search.js?1619168107"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/0_introduction.html" title="Introduction Videos" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../0_introduction.html">
+          <i class="fa fa-film" aria-hidden="true"></i> Introduction Videos
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/0_introduction/interface_overview.html" title="Workshop Interface Overview" class="dd-item ">
+        <a href="../../amp/0_introduction/interface_overview.html">
+        <i class="fa fa-film" aria-hidden="true"></i> Workshop Interface Overview
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/0_introduction/content_overview.html" title="Workshop Content Overview" class="dd-item ">
+        <a href="../../amp/0_introduction/content_overview.html">
+        <i class="fa fa-film" aria-hidden="true"></i> Workshop Content Overview
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1_setup.html" title="1. Setup" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../1_setup.html">
+          1. Setup
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/1_setup/studio_setup.html" title="Setup Amazon SageMaker Studio" class="dd-item ">
+        <a href="../../amp/1_setup/studio_setup.html">
+        Setup Amazon SageMaker Studio
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/1_setup/create_notebook.html" title="Create your first Studio notebook" class="dd-item ">
+        <a href="../../amp/1_setup/create_notebook.html">
+        Create your first Studio notebook
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2_data-prep.html" title="2. Data Preparation" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../2_data-prep.html">
+          2. Data Preparation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/2_data-prep/dataprep_studio_notebook.html" title="2.1 Data Preparation with Amazon SageMaker Studio Notebook" class="dd-item ">
+        <a href="../../amp/2_data-prep/dataprep_studio_notebook.html">
+        2.1 Data Preparation with Amazon SageMaker Studio Notebook
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/2_data-prep/dataanalysis_datawrangler.html" title="2.2 Data Analysis with SageMaker Data Wrangler" class="dd-item ">
+        <a href="../../amp/2_data-prep/dataanalysis_datawrangler.html">
+        2.2 Data Analysis with SageMaker Data Wrangler
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/2_data-prep/dataprep_datawrangler.html" title="2.3 Data Preparation with SageMaker Data Wrangler" class="dd-item ">
+        <a href="../../amp/2_data-prep/dataprep_datawrangler.html">
+        2.3 Data Preparation with SageMaker Data Wrangler
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3_build-train.html" title="3. Build, train and tune ML models" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../3_build-train.html">
+          3. Build, train and tune ML models
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/3_build-train/train_xgboost_model.html" title="3.1 Train an XGBoost model" class="dd-item ">
+        <a href="../../amp/3_build-train/train_xgboost_model.html">
+        3.1 Train an XGBoost model
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/3_build-train/hyperparametertune_xgboost_model.html" title="3.2 Hyperparameter tuning and bias mitigation" class="dd-item ">
+        <a href="../../amp/3_build-train/hyperparametertune_xgboost_model.html">
+        3.2 Hyperparameter tuning and bias mitigation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4_deploy.html" title="4. Deploy ML models" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../4_deploy.html">
+          4. Deploy ML models
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/4_deploy/deploy_xgboost_model.html" title="4.1 Deploy XGBoost model" class="dd-item ">
+        <a href="../../amp/4_deploy/deploy_xgboost_model.html">
+        4.1 Deploy XGBoost model
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5_end-to-end-pipeline.html" title="5. End-to-end ML Pipelines" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="../../5_end-to-end-pipeline.html">
+          5. End-to-end ML Pipelines
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/5_end-to-end-pipeline/end-to-end-ml-pipeline.html" title="5.1 Automating end-to-end ML pipelines" class="dd-item active">
+        <a href="../../amp/5_end-to-end-pipeline/end-to-end-ml-pipeline.html">
+        5.1 Automating end-to-end ML pipelines
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6_clean-up.html" title="6. Clean up resources" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../6_clean-up.html">
+          6. Clean up resources
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/6_clean-up/cleanup.html" title="Delete all resources" class="dd-item ">
+        <a href="../../amp/6_clean-up/cleanup.html">
+        Delete all resources
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/appendix.html" title="Appendix" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../../appendix.html">
+          Appendix
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/appendix/docs.html" title="Documentation resources" class="dd-item ">
+        <a href="../../amp/appendix/docs.html">
+        Documentation resources
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/appendix/resources.html" title="Technical papers" class="dd-item ">
+        <a href="../../amp/appendix/resources.html">
+        Technical papers
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/appendix/blogposts_videos.html" title="Blogposts and videos" class="dd-item ">
+        <a href="../../amp/appendix/blogposts_videos.html">
+        Blogposts and videos
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/amp/appendix/example-profiler-report.html" title="Example profiler report" class="dd-item ">
+        <a href="../../amp/appendix/example-profiler-report.html">
+        Example profiler report
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='../../amp/'>Getting started with Amazon SageMaker Workshop</a> > <a href='../../5_end-to-end-pipeline.html'>5. End-to-end ML Pipelines</a> > 5.1 Automating end-to-end ML pipelines
+          
+        
+          
+        
+          
+        
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#create-a-sagemaker-pipeline-to-automate-all-the-steps-from-data-prep-to-model-deployment">Create a SageMaker Pipeline to Automate All the Steps from Data Prep to Model Deployment</a></li>
+<li><a href="#pipeline-parameters">Pipeline parameters</a>
+<ul>
+<li><a href="#step-1-preprocess">Step 1: Preprocess</a></li>
+<li><a href="#step-2-train-xgboost-model">Step 2: Train XGBoost Model</a>
+<ul>
+<li><a href="#spot-training">Spot training</a></li>
+</ul></li>
+<li><a href="#step-3-model-pre-deployment-step">Step 3: Model Pre-Deployment Step</a></li>
+<li><a href="#step-4-run-bias-metrics-with-clarify">Step 4: Run Bias Metrics with Clarify</a></li>
+<li><a href="#step-5-register-model">Step 5: Register Model</a></li>
+<li><a href="#step-6-deploy-model">Step 6: Deploy Model</a></li>
+<li><a href="#combine-the-pipeline-steps-and-run">Combine the Pipeline Steps and Run</a></li>
+<li><a href="#submit-the-pipeline-definition-to-the-sagemaker-pipeline-service">Submit the pipeline definition to the SageMaker Pipeline service</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>5.1 Automating end-to-end ML pipelines</h1>
+          
+
+        
+
+
+
+
+
+<div class="notices info" ><p>Start this section in a new Jupyter notebook with the Data Science kernel</p>
+</div>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> json
+<span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> pathlib
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
+<span style="color:#f92672">from</span> time <span style="color:#f92672">import</span> gmtime, strftime
+
+<span style="color:#f92672">import</span> boto3
+
+<span style="color:#f92672">import</span> sagemaker
+<span style="color:#f92672">from</span> sagemaker.inputs <span style="color:#f92672">import</span> TrainingInput
+<span style="color:#f92672">from</span> sagemaker.processing <span style="color:#f92672">import</span> ProcessingInput, ProcessingOutput, FeatureStoreOutput
+<span style="color:#f92672">from</span> sagemaker.workflow.pipeline <span style="color:#f92672">import</span> Pipeline
+<span style="color:#f92672">from</span> sagemaker.sklearn.processing <span style="color:#f92672">import</span> SKLearnProcessor
+<span style="color:#f92672">from</span> sagemaker.workflow.step_collections <span style="color:#f92672">import</span> RegisterModel
+<span style="color:#f92672">from</span> sagemaker.feature_store.feature_group <span style="color:#f92672">import</span> FeatureGroup
+<span style="color:#f92672">from</span> sagemaker.workflow.parameters <span style="color:#f92672">import</span> ParameterInteger, ParameterFloat, ParameterString
+<span style="color:#f92672">from</span> sagemaker.workflow.steps <span style="color:#f92672">import</span> ProcessingStep, TrainingStep, CreateModelStep</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Set region, boto3 and SageMaker SDK variables¶</span>
+
+<span style="color:#75715e">#You can change this to a region of your choice</span>
+region <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>Session()<span style="color:#f92672">.</span>boto_region_name
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Using AWS Region: {}&#34;</span><span style="color:#f92672">.</span>format(region))
+
+boto3<span style="color:#f92672">.</span>setup_default_session(region_name<span style="color:#f92672">=</span>region)
+boto_session <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>Session(region_name<span style="color:#f92672">=</span>region)
+
+s3_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>, region_name<span style="color:#f92672">=</span>region)
+sagemaker_boto_client <span style="color:#f92672">=</span> boto_session<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sagemaker&#39;</span>)
+
+sagemaker_session <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>session<span style="color:#f92672">.</span>Session(
+    boto_session<span style="color:#f92672">=</span>boto_session,
+    sagemaker_client<span style="color:#f92672">=</span>sagemaker_boto_client)
+
+sagemaker_role <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>get_execution_role()
+account_id <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sts&#39;</span>)<span style="color:#f92672">.</span>get_caller_identity()[<span style="color:#e6db74">&#34;Account&#34;</span>]
+
+random_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">%</span>store <span style="color:#f92672">-</span>r
+<span style="color:#f92672">%</span>store</code></pre></div>
+<h3 id="create-a-sagemaker-pipeline-to-automate-all-the-steps-from-data-prep-to-model-deployment">Create a SageMaker Pipeline to Automate All the Steps from Data Prep to Model Deployment</h3>
+
+<p>Now that youve manually done each step in our machine learning workflow, you can create a pipeline which trains a new model, persists the model in SageMaker and then adds the model to the registry.</p>
+
+<h3 id="pipeline-parameters">Pipeline parameters</h3>
+
+<p>An important feature of SageMaker Pipelines is the ability to define the steps ahead of time, but be able to change the parameters to those steps at execution without having to re-define the pipeline. This can be achieved by using ParameterInteger, ParameterFloat or ParameterString to define a value upfront which can be modified when you call pipeline.start(parameters=parameters) later. Only certain parameters can be defined this way.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> subprocess
+<span style="color:#f92672">import</span> sys
+
+subprocess<span style="color:#f92672">.</span>check_call([sys<span style="color:#f92672">.</span>executable, <span style="color:#e6db74">&#34;-m&#34;</span>, <span style="color:#e6db74">&#34;pip&#34;</span>, <span style="color:#e6db74">&#34;install&#34;</span>, <span style="color:#e6db74">&#39;imblearn&#39;</span>])</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">train_instance_param <span style="color:#f92672">=</span> ParameterString(
+    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;TrainingInstance&#34;</span>,
+    default_value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ml.m4.xlarge&#34;</span>
+)
+
+model_approval_status <span style="color:#f92672">=</span> ParameterString(
+    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ModelApprovalStatus&#34;</span>,
+    default_value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;PendingManualApproval&#34;</span>
+)
+
+deploy_model_instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ml.m4.xlarge&#34;</span>
+
+<span style="color:#75715e"># this line automatically looks for the XGBoost image URI and builds an XGBoost container.</span>
+<span style="color:#75715e"># specify the repo_version depending on your preference.</span>
+xgboost_container <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>image_uris<span style="color:#f92672">.</span>retrieve(<span style="color:#e6db74">&#34;xgboost&#34;</span>, region, <span style="color:#e6db74">&#34;1.2-1&#34;</span>)</code></pre></div>
+<h4 id="step-1-preprocess">Step 1: Preprocess</h4>
+
+<p>Download the preprocessing script</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#960050;background-color:#1e0010">!</span>wget https:<span style="color:#f92672">//</span>raw<span style="color:#f92672">.</span>githubusercontent<span style="color:#f92672">.</span>com<span style="color:#f92672">/</span>shashankprasanna<span style="color:#f92672">/</span>sagemaker<span style="color:#f92672">-</span>workshop<span style="color:#f92672">-</span><span style="color:#ae81ff">2021</span><span style="color:#f92672">/</span>main<span style="color:#f92672">/</span>notebooks<span style="color:#f92672">/</span><span style="color:#ae81ff">04</span>_e2e_pipeline<span style="color:#f92672">/</span>preprocessing<span style="color:#f92672">.</span>py</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">s3_client<span style="color:#f92672">.</span>upload_file(Filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;./preprocessing.py&#39;</span>, Bucket<span style="color:#f92672">=</span>default_bucket, Key<span style="color:#f92672">=</span>f<span style="color:#e6db74">&#39;{prefix}/code/preprocessing.py&#39;</span>)
+
+create_dataset_script_uri <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;s3://{default_bucket}/{prefix}/code/preprocessing.py&#39;</span>
+
+
+create_dataset_processor <span style="color:#f92672">=</span> SKLearnProcessor(
+    framework_version<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0.23-1&#39;</span>,
+    role<span style="color:#f92672">=</span>sagemaker_role,
+    instance_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ml.m5.xlarge&#34;</span>,
+    instance_count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+    base_job_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;credit-create-dataset&#39;</span>,
+    sagemaker_session<span style="color:#f92672">=</span>sagemaker_session)
+
+create_dataset_step <span style="color:#f92672">=</span> ProcessingStep(
+    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;CreateDataset&#39;</span>,
+    processor<span style="color:#f92672">=</span>create_dataset_processor,
+    inputs<span style="color:#f92672">=</span>[ProcessingInput(
+                        source<span style="color:#f92672">=</span>s3_raw_data,
+                        destination<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/opt/ml/processing/input&#39;</span>)],
+    outputs<span style="color:#f92672">=</span>[ProcessingOutput(output_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;train_data&#39;</span>, source<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/opt/ml/processing/output/train&#39;</span>),
+             ProcessingOutput(output_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test_data&#39;</span>,  source<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/opt/ml/processing/output/test&#39;</span>)],
+    job_arguments<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;--train-test-split-ratio&#34;</span>, <span style="color:#e6db74">&#39;0.8&#39;</span>],
+    code<span style="color:#f92672">=</span>create_dataset_script_uri)</code></pre></div>
+<h4 id="step-2-train-xgboost-model">Step 2: Train XGBoost Model</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">train_instance_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+train_instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ml.m4.xlarge&#34;</span>
+content_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;text/csv&#34;</span>
+job_name <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;XgboostTrain-&#39;</span> <span style="color:#f92672">+</span> strftime(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-%H-%M-%S&#39;</span>, gmtime())
+training_job_output_path <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;s3://{default_bucket}/{prefix}/training_jobs&#39;</span></code></pre></div>
+<h5 id="spot-training">Spot training</h5>
+
+<p>Managed Spot Training uses Amazon EC2 Spot instance to run training jobs instead of on-demand instances. You can specify which training jobs use spot instances and a stopping condition that specifies how long Amazon SageMaker waits for a job to run using Amazon EC2 Spot instances.</p>
+
+<p>This time in the pipeline, we will perform XGBoost training using Spot Instances.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">use_spot_instances <span style="color:#f92672">=</span> False
+max_run <span style="color:#f92672">=</span> <span style="color:#ae81ff">3600</span>
+max_wait <span style="color:#f92672">=</span> <span style="color:#ae81ff">7200</span> <span style="color:#66d9ef">if</span> use_spot_instances <span style="color:#66d9ef">else</span> None
+checkpoint_s3_uri <span style="color:#f92672">=</span> (f<span style="color:#e6db74">&#39;s3://{default_bucket}/{prefix}/checkpoints/{job_name}&#39;</span> <span style="color:#66d9ef">if</span> use_spot_instances
+                      <span style="color:#66d9ef">else</span> None)
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Checkpoint path:&#34;</span>, checkpoint_s3_uri)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#960050;background-color:#1e0010">!</span>pip install sagemaker<span style="color:#f92672">-</span>experiments</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># construct a SageMaker estimator that calls the xgboost-container</span>
+xgboost_container <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>image_uris<span style="color:#f92672">.</span>retrieve(<span style="color:#e6db74">&#34;xgboost&#34;</span>, region, <span style="color:#e6db74">&#34;1.2-1&#34;</span>)
+
+xgb_estimator <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>estimator<span style="color:#f92672">.</span>Estimator(image_uri<span style="color:#f92672">=</span>xgboost_container,
+                                              hyperparameters<span style="color:#f92672">=</span>best_job_hp,
+                                              role<span style="color:#f92672">=</span>sagemaker<span style="color:#f92672">.</span>get_execution_role(),
+                                              instance_count<span style="color:#f92672">=</span>train_instance_count,
+                                              instance_type<span style="color:#f92672">=</span>train_instance_type,
+                                              volume_size<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,  <span style="color:#75715e"># 5 GB</span>
+                                              output_path<span style="color:#f92672">=</span>training_job_output_path,
+                                              use_spot_instances<span style="color:#f92672">=</span>use_spot_instances,
+                                              max_run<span style="color:#f92672">=</span>max_run,
+                                              max_wait<span style="color:#f92672">=</span>max_wait,
+                                              checkpoint_s3_uri<span style="color:#f92672">=</span>checkpoint_s3_uri
+                                             )
+
+
+train_step <span style="color:#f92672">=</span> TrainingStep(
+    name<span style="color:#f92672">=</span>job_name,
+    estimator<span style="color:#f92672">=</span>xgb_estimator,
+    inputs<span style="color:#f92672">=</span>{
+        <span style="color:#e6db74">&#39;train&#39;</span>: TrainingInput(
+            s3_data<span style="color:#f92672">=</span>create_dataset_step<span style="color:#f92672">.</span>properties<span style="color:#f92672">.</span>ProcessingOutputConfig<span style="color:#f92672">.</span>Outputs[<span style="color:#e6db74">&#39;train_data&#39;</span>]<span style="color:#f92672">.</span>S3Output<span style="color:#f92672">.</span>S3Uri,
+        content_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;csv&#34;</span>)
+    }
+)</code></pre></div>
+<h4 id="step-3-model-pre-deployment-step">Step 3: Model Pre-Deployment Step</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>model<span style="color:#f92672">.</span>Model(
+    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;credit-default-demo-pipeline-xgboost&#39;</span>,
+    image_uri<span style="color:#f92672">=</span>train_step<span style="color:#f92672">.</span>properties<span style="color:#f92672">.</span>AlgorithmSpecification<span style="color:#f92672">.</span>TrainingImage,
+    model_data<span style="color:#f92672">=</span>train_step<span style="color:#f92672">.</span>properties<span style="color:#f92672">.</span>ModelArtifacts<span style="color:#f92672">.</span>S3ModelArtifacts,
+    sagemaker_session<span style="color:#f92672">=</span>sagemaker_session,
+    role<span style="color:#f92672">=</span>sagemaker_role
+)
+
+inputs <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>inputs<span style="color:#f92672">.</span>CreateModelInput(
+    instance_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ml.m4.xlarge&#34;</span>
+)
+
+create_model_step <span style="color:#f92672">=</span> CreateModelStep(
+    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ModelPreDeployment&#34;</span>,
+    model<span style="color:#f92672">=</span>model,
+    inputs<span style="color:#f92672">=</span>inputs
+)</code></pre></div>
+<h4 id="step-4-run-bias-metrics-with-clarify">Step 4: Run Bias Metrics with Clarify</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># clarify config</span>
+bias_report_output_path <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;s3://{default_bucket}/{prefix}/clarify-output/bias&#39;</span>
+s3_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>, region_name<span style="color:#f92672">=</span>region)
+
+bias_data_config <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>clarify<span style="color:#f92672">.</span>DataConfig(
+    s3_data_input_path<span style="color:#f92672">=</span>create_dataset_step<span style="color:#f92672">.</span>properties<span style="color:#f92672">.</span>ProcessingOutputConfig<span style="color:#f92672">.</span>Outputs[<span style="color:#e6db74">&#39;train_data&#39;</span>]<span style="color:#f92672">.</span>S3Output<span style="color:#f92672">.</span>S3Uri,
+    label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;LABEL&#39;</span>,
+    dataset_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;text/csv&#39;</span>,
+    s3_output_path<span style="color:#f92672">=</span>bias_report_output_path)
+
+bias_config <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>clarify<span style="color:#f92672">.</span>BiasConfig(
+    label_values_or_threshold<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>],
+    facet_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;SEX&#39;</span>,
+    facet_values_or_threshold<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>])
+
+analysis_config <span style="color:#f92672">=</span> bias_data_config<span style="color:#f92672">.</span>get_config()
+analysis_config<span style="color:#f92672">.</span>update(bias_config<span style="color:#f92672">.</span>get_config())
+analysis_config[<span style="color:#e6db74">&#34;methods&#34;</span>] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;pre_training_bias&#34;</span>: {<span style="color:#e6db74">&#34;methods&#34;</span>: <span style="color:#e6db74">&#34;all&#34;</span>}}
+
+clarify_config_dir <span style="color:#f92672">=</span> pathlib<span style="color:#f92672">.</span>Path(<span style="color:#e6db74">&#39;config&#39;</span>)
+clarify_config_dir<span style="color:#f92672">.</span>mkdir(exist_ok<span style="color:#f92672">=</span>True)
+<span style="color:#66d9ef">with</span> open(clarify_config_dir <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;analysis_config.json&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> f:
+    json<span style="color:#f92672">.</span>dump(analysis_config, f)
+
+s3_client<span style="color:#f92672">.</span>upload_file(Filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;config/analysis_config.json&#39;</span>, Bucket<span style="color:#f92672">=</span>default_bucket,
+                      Key<span style="color:#f92672">=</span>f<span style="color:#e6db74">&#39;{prefix}/clarify-config/analysis_config.json&#39;</span>)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># clarify processing step</span>
+clarify_processor <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>processing<span style="color:#f92672">.</span>Processor(
+    base_job_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;fraud-detection-demo-clarify-processor&#39;</span>,
+    image_uri<span style="color:#f92672">=</span>sagemaker<span style="color:#f92672">.</span>clarify<span style="color:#f92672">.</span>image_uris<span style="color:#f92672">.</span>retrieve(framework<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;clarify&#39;</span>, region<span style="color:#f92672">=</span>region),
+    role<span style="color:#f92672">=</span>sagemaker<span style="color:#f92672">.</span>get_execution_role(),
+    instance_count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+    instance_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ml.c5.xlarge&#39;</span>)
+
+clarify_step <span style="color:#f92672">=</span> ProcessingStep(
+    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ClarifyProcessor&#34;</span>,
+    processor<span style="color:#f92672">=</span>clarify_processor,
+    inputs<span style="color:#f92672">=</span>[
+        sagemaker<span style="color:#f92672">.</span>processing<span style="color:#f92672">.</span>ProcessingInput(
+            input_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;analysis_config&#34;</span>,
+            source<span style="color:#f92672">=</span>f<span style="color:#e6db74">&#39;s3://{default_bucket}/{prefix}/clarify-config/analysis_config.json&#39;</span>,
+            destination<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/opt/ml/processing/input/config&#34;</span>),
+        sagemaker<span style="color:#f92672">.</span>processing<span style="color:#f92672">.</span>ProcessingInput(
+            input_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dataset&#34;</span>,
+            source<span style="color:#f92672">=</span>create_dataset_step<span style="color:#f92672">.</span>properties<span style="color:#f92672">.</span>ProcessingOutputConfig<span style="color:#f92672">.</span>Outputs[<span style="color:#e6db74">&#39;train_data&#39;</span>]<span style="color:#f92672">.</span>S3Output<span style="color:#f92672">.</span>S3Uri,
+            destination<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/opt/ml/processing/input/data&#34;</span>)
+    ],
+    outputs<span style="color:#f92672">=</span>[
+        sagemaker<span style="color:#f92672">.</span>processing<span style="color:#f92672">.</span>ProcessingOutput(
+            source<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/opt/ml/processing/output/analysis.json&#34;</span>,
+            destination<span style="color:#f92672">=</span>bias_report_output_path,
+            output_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;analysis_result&#34;</span>)
+    ]
+)</code></pre></div>
+<h4 id="step-5-register-model">Step 5: Register Model</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ModelMetrics</span>(object):
+    <span style="color:#e6db74">&#34;&#34;&#34;Accepts model metrics parameters for conversion to request dict.&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(
+            self,
+            model_statistics<span style="color:#f92672">=</span>None,
+            model_constraints<span style="color:#f92672">=</span>None,
+            model_data_statistics<span style="color:#f92672">=</span>None,
+            model_data_constraints<span style="color:#f92672">=</span>None,
+            bias<span style="color:#f92672">=</span>None,
+            explainability<span style="color:#f92672">=</span>None,
+    ):
+        <span style="color:#e6db74">&#34;&#34;&#34;Initialize a ``ModelMetrics`` instance and turn parameters into dict.
+</span><span style="color:#e6db74">        Args:
+</span><span style="color:#e6db74">            model_constraints (MetricsSource):
+</span><span style="color:#e6db74">            model_data_constraints (MetricsSource):
+</span><span style="color:#e6db74">            model_data_statistics (MetricsSource):
+</span><span style="color:#e6db74">            bias (MetricsSource):
+</span><span style="color:#e6db74">            explainability (MetricsSource):
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        self<span style="color:#f92672">.</span>model_statistics <span style="color:#f92672">=</span> model_statistics
+        self<span style="color:#f92672">.</span>model_constraints <span style="color:#f92672">=</span> model_constraints
+        self<span style="color:#f92672">.</span>model_data_statistics <span style="color:#f92672">=</span> model_data_statistics
+        self<span style="color:#f92672">.</span>model_data_constraints <span style="color:#f92672">=</span> model_data_constraints
+        self<span style="color:#f92672">.</span>bias <span style="color:#f92672">=</span> bias
+        self<span style="color:#f92672">.</span>explainability <span style="color:#f92672">=</span> explainability
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_to_request_dict</span>(self):
+        <span style="color:#e6db74">&#34;&#34;&#34;Generates a request dictionary using the parameters provided to the class.&#34;&#34;&#34;</span>
+        model_metrics_request <span style="color:#f92672">=</span> {}
+
+        model_quality <span style="color:#f92672">=</span> {}
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>model_statistics <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+            model_quality[<span style="color:#e6db74">&#34;Statistics&#34;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>model_statistics<span style="color:#f92672">.</span>_to_request_dict()
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>model_constraints <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+            model_quality[<span style="color:#e6db74">&#34;Constraints&#34;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>model_constraints<span style="color:#f92672">.</span>_to_request_dict()
+        <span style="color:#66d9ef">if</span> model_quality:
+            model_metrics_request[<span style="color:#e6db74">&#34;ModelQuality&#34;</span>] <span style="color:#f92672">=</span> model_quality
+
+        model_data_quality <span style="color:#f92672">=</span> {}
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>model_data_statistics <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+            model_data_quality[<span style="color:#e6db74">&#34;Statistics&#34;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>model_data_statistics<span style="color:#f92672">.</span>_to_request_dict()
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>model_data_constraints <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+            model_data_quality[<span style="color:#e6db74">&#34;Constraints&#34;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>model_data_constraints<span style="color:#f92672">.</span>_to_request_dict()
+        <span style="color:#66d9ef">if</span> model_data_quality:
+            model_metrics_request[<span style="color:#e6db74">&#34;ModelDataQuality&#34;</span>] <span style="color:#f92672">=</span> model_data_quality
+
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>bias <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+            model_metrics_request[<span style="color:#e6db74">&#34;Bias&#34;</span>] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;Report&#34;</span>: self<span style="color:#f92672">.</span>bias<span style="color:#f92672">.</span>_to_request_dict()}
+            <span style="color:#75715e"># model_metrics_request[&#34;Bias&#34;] = self.bias._to_request_dict()</span>
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>explainability <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+            model_metrics_request[<span style="color:#e6db74">&#34;Explainability&#34;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>explainability<span style="color:#f92672">.</span>_to_request_dict()
+        <span style="color:#66d9ef">return</span> model_metrics_request</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model_metrics <span style="color:#f92672">=</span> ModelMetrics(
+    bias<span style="color:#f92672">=</span>sagemaker<span style="color:#f92672">.</span>model_metrics<span style="color:#f92672">.</span>MetricsSource(
+        s3_uri<span style="color:#f92672">=</span>clarify_step<span style="color:#f92672">.</span>properties<span style="color:#f92672">.</span>ProcessingOutputConfig<span style="color:#f92672">.</span>Outputs[<span style="color:#e6db74">&#39;analysis_result&#39;</span>]<span style="color:#f92672">.</span>S3Output<span style="color:#f92672">.</span>S3Uri,
+        content_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;application/json&#34;</span>
+    )
+)
+
+<span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;mpg_name&#39;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> locals():
+    mpg_name <span style="color:#f92672">=</span> prefix
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Model Package Group name: {mpg_name}&#39;</span>)
+
+register_step <span style="color:#f92672">=</span> RegisterModel(
+    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;XgboostRegisterModel&#34;</span>,
+    estimator<span style="color:#f92672">=</span>xgb_estimator,
+    model_data<span style="color:#f92672">=</span>train_step<span style="color:#f92672">.</span>properties<span style="color:#f92672">.</span>ModelArtifacts<span style="color:#f92672">.</span>S3ModelArtifacts,
+    content_types<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;text/csv&#34;</span>],
+    response_types<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;text/csv&#34;</span>],
+    inference_instances<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;ml.t2.medium&#34;</span>, <span style="color:#e6db74">&#34;ml.m5.xlarge&#34;</span>],
+    transform_instances<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;ml.m5.xlarge&#34;</span>],
+    model_package_group_name<span style="color:#f92672">=</span>mpg_name,
+    approval_status<span style="color:#f92672">=</span>model_approval_status,
+    model_metrics<span style="color:#f92672">=</span>model_metrics
+)</code></pre></div>
+<h4 id="step-6-deploy-model">Step 6: Deploy Model</h4>
+
+<p>Download the deploy_model.py script</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#960050;background-color:#1e0010">!</span>wget https:<span style="color:#f92672">//</span>raw<span style="color:#f92672">.</span>githubusercontent<span style="color:#f92672">.</span>com<span style="color:#f92672">/</span>shashankprasanna<span style="color:#f92672">/</span>sagemaker<span style="color:#f92672">-</span>workshop<span style="color:#f92672">-</span><span style="color:#ae81ff">2021</span><span style="color:#f92672">/</span>main<span style="color:#f92672">/</span>notebooks<span style="color:#f92672">/</span><span style="color:#ae81ff">04</span>_e2e_pipeline<span style="color:#f92672">/</span>deploy_model<span style="color:#f92672">.</span>py</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">endpoint_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xgboost-model-pipeline-&#34;</span> <span style="color:#f92672">+</span> strftime(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-%H-%M-%S&#39;</span>, gmtime())
+deploy_model_script_uri <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;s3://{default_bucket}/{prefix}/code/deploy_model.py&#39;</span>
+
+
+s3_client<span style="color:#f92672">.</span>upload_file(Filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;deploy_model.py&#39;</span>, Bucket<span style="color:#f92672">=</span>default_bucket, Key<span style="color:#f92672">=</span>f<span style="color:#e6db74">&#39;{prefix}/code/deploy_model.py&#39;</span>)
+
+deploy_model_processor <span style="color:#f92672">=</span> SKLearnProcessor(
+    framework_version<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0.23-1&#39;</span>,
+    role<span style="color:#f92672">=</span>sagemaker_role,
+    instance_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ml.t3.medium&#34;</span>,
+    instance_count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+    base_job_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;fraud-detection-demo-deploy-model&#39;</span>,
+    sagemaker_session<span style="color:#f92672">=</span>sagemaker_session)
+
+deploy_step <span style="color:#f92672">=</span> ProcessingStep(
+    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DeployModel&#39;</span>,
+    processor<span style="color:#f92672">=</span>deploy_model_processor,
+    job_arguments<span style="color:#f92672">=</span>[
+        <span style="color:#e6db74">&#34;--model-name&#34;</span>, create_model_step<span style="color:#f92672">.</span>properties<span style="color:#f92672">.</span>ModelName,
+        <span style="color:#e6db74">&#34;--region&#34;</span>, region,
+        <span style="color:#e6db74">&#34;--endpoint-instance-type&#34;</span>, deploy_model_instance_type,
+        <span style="color:#e6db74">&#34;--endpoint-name&#34;</span>, endpoint_name],
+    code<span style="color:#f92672">=</span>deploy_model_script_uri)</code></pre></div>
+<h4 id="combine-the-pipeline-steps-and-run">Combine the Pipeline Steps and Run</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pipeline_name <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;credit-default&#39;</span>
+
+pipeline <span style="color:#f92672">=</span> Pipeline(
+    name<span style="color:#f92672">=</span>pipeline_name,
+    parameters<span style="color:#f92672">=</span>[
+        train_instance_param,
+        model_approval_status],
+    steps<span style="color:#f92672">=</span>[
+        create_dataset_step,
+        train_step,
+        create_model_step,
+        clarify_step,
+        register_step,
+        deploy_step
+    ])</code></pre></div>
+<h4 id="submit-the-pipeline-definition-to-the-sagemaker-pipeline-service">Submit the pipeline definition to the SageMaker Pipeline service</h4>
+
+<p>Note: If an existing pipeline has the same name it will be overwritten.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pipeline<span style="color:#f92672">.</span>upsert(role_arn<span style="color:#f92672">=</span>sagemaker_role)</code></pre></div>
+<p>The full pipeline will take up to 30 min to run</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">start_response <span style="color:#f92672">=</span> pipeline<span style="color:#f92672">.</span>start()
+
+start_response<span style="color:#f92672">.</span>wait()
+start_response<span style="color:#f92672">.</span>describe()</code></pre></div>
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+        
+            <a class="nav nav-prev" href="../../5_end-to-end-pipeline.html" title="5. End-to-end ML Pipelines"> <i class="fas fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="../../6_clean-up.html" title="6. Clean up resources" style="margin-right: 0px;"><i class="fas fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="../../js/clipboard.min.js?1619168107"></script>
+    <script src="../../js/perfect-scrollbar.min.js?1619168107"></script>
+    <script src="../../js/perfect-scrollbar.jquery.min.js?1619168107"></script>
+    <script src="../../js/jquery.sticky.js?1619168107"></script>
+    <script src="../../js/featherlight.min.js?1619168107"></script>
+    <script src="../../js/highlight.pack.js?1619168107"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../../js/modernizr.custom-3.6.0.js?1619168107"></script>
+    <script src="../../js/learn.js?1619168107"></script>
+    <script src="../../js/hugo-learn.js?1619168107"></script>
+
+    <link href="../../mermaid/mermaid.css?1619168107" type="text/css" rel="stylesheet" />
+    <script src="../../mermaid/mermaid.min.js?1619168107"></script>
+    <script>
+	var config = {
+        startOnLoad:true,
+        flowchart:{
+	    curve:'basis'
+        }
+      };
+        mermaid.initialize(config);
+    </script>
+    
+
+<script type="text/javascript" src="https://eventbox.dev/js/injectOverlay.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2. Data Preparation on Deep learning with Amazon SageMaker Studio</title>
+    <link>/1_data-prep.html</link>
+    <description>Recent content in 2. Data Preparation on Deep learning with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/1_data-prep/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Data Preparation with Amazon SageMaker Studiod</title>
+      <link>/1_data-prep/builtin_cifar10.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1_data-prep/builtin_cifar10.html</guid>
+      <description> Step 1 - Launch SageMaker Studio Notebook Once you launch SageMaker Studio follow the instructions below to start a notebook.
+A. Go to File-&amp;gt; New Launcher TBD </description>
+    </item>
+    
+  </channel>
+</rss>

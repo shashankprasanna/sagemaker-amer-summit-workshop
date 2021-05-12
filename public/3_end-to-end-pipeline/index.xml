@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>4. End-to-end ML Pipelines on Deep learning with Amazon SageMaker Studio</title>
+    <link>/3_end-to-end-pipeline.html</link>
+    <description>Recent content in 4. End-to-end ML Pipelines on Deep learning with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/3_end-to-end-pipeline/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Setup an end-to-end ML pipeline</title>
+      <link>/3_end-to-end-pipeline/tensorflow_cifar10.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/3_end-to-end-pipeline/tensorflow_cifar10.html</guid>
+      <description> TBD </description>
+    </item>
+    
+  </channel>
+</rss>

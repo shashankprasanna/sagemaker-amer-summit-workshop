@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>6. Clean up resources on Getting Started with Amazon SageMaker Studio</title>
+    <link>/6_clean-up.html</link>
+    <description>Recent content in 6. Clean up resources on Getting Started with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/6_clean-up/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Delete all resources</title>
+      <link>/6_clean-up/cleanup.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/6_clean-up/cleanup.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ After running the workshop, you can remove the resources which you created using this helper function.
+First download the helper function. In a new cell execute the following.
+!wget https://raw.githubusercontent.com/shashankprasanna/sagemaker-workshop-2021/main/notebooks/04_e2e_pipeline/utils.py%store -r Run the following command to delete all your project resources. You can also delete all the objects in the project&amp;rsquo;s S3 directory by passing the keyword argument delete_s3_objects=True.</description>
+    </item>
+    
+  </channel>
+</rss>

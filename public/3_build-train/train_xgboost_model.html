@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:title" content="distributed-training-workshop.go-aws.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://distributed-training-workshop.go-aws.com" />
+    <meta property="og:image" content="https://distributed-training-workshop.go-aws.com/images/intro/home.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.59.0" />
+    <meta name="description" content="Getting Started with Amazon SageMaker Studio">
+<meta name="author" content="Shashank Prasanna">
+
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+
+    {0xc000728f00 0xc0005cf180}
+    <title>3.1 Train an XGBoost model :: Getting Started with Amazon SageMaker Studio</title>
+
+    
+    <link href="../css/nucleus.css?1619168107" rel="stylesheet">
+    <link href="../css/fontawesome-all.min.css?1619168107" rel="stylesheet">
+    <link href="../css/hybrid.css?1619168107" rel="stylesheet">
+    <link href="../css/featherlight.min.css?1619168107" rel="stylesheet">
+    <link href="../css/perfect-scrollbar.min.css?1619168107" rel="stylesheet">
+    <link href="../css/auto-complete.css?1619168107" rel="stylesheet">
+    <link href="../css/theme.css?1619168107" rel="stylesheet">
+    <link href="../css/hugo-theme.css?1619168107" rel="stylesheet">
+    <link href="../css/jquery-ui.min.css?1619168107" rel="stylesheet">
+    
+      <link href="../css/theme-mine.css?1619168107" rel="stylesheet">
+    
+
+    <script src="../js/jquery-3.3.1.min.js?1619168107"></script>
+    <script src="../js/jquery-ui-1.12.1.min.js?1619168107"></script>
+
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/3_build-train/train_xgboost_model.html">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a href="../" title="Go home"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" width="60%" style="padding:20px 0px;"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg></a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="../js/lunr.min.js?1619168107"></script>
+<script type="text/javascript" src="../js/auto-complete.js?1619168107"></script>
+<script type="text/javascript">
+    
+        var baseurl = "";
+    
+</script>
+<script type="text/javascript" src="../js/search.js?1619168107"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/0_introduction.html" title="Introduction Videos" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../0_introduction.html">
+          <i class="fa fa-film" aria-hidden="true"></i> Introduction Videos
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/0_introduction/interface_overview.html" title="Workshop Interface Overview" class="dd-item ">
+        <a href="../0_introduction/interface_overview.html">
+        <i class="fa fa-film" aria-hidden="true"></i> Workshop Interface Overview
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/0_introduction/content_overview.html" title="Workshop Content Overview" class="dd-item ">
+        <a href="../0_introduction/content_overview.html">
+        <i class="fa fa-film" aria-hidden="true"></i> Workshop Content Overview
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1_setup.html" title="1. Setup" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../1_setup.html">
+          1. Setup
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/1_setup/studio_setup.html" title="Setup Amazon SageMaker Studio" class="dd-item ">
+        <a href="../1_setup/studio_setup.html">
+        Setup Amazon SageMaker Studio
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/1_setup/create_notebook.html" title="Create your first Studio notebook" class="dd-item ">
+        <a href="../1_setup/create_notebook.html">
+        Create your first Studio notebook
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2_data-prep.html" title="2. Data Preparation" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../2_data-prep.html">
+          2. Data Preparation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/2_data-prep/dataprep_studio_notebook.html" title="2.1 Data Preparation with Amazon SageMaker Studio Notebook" class="dd-item ">
+        <a href="../2_data-prep/dataprep_studio_notebook.html">
+        2.1 Data Preparation with Amazon SageMaker Studio Notebook
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/2_data-prep/dataanalysis_datawrangler.html" title="2.2 Data Analysis with SageMaker Data Wrangler" class="dd-item ">
+        <a href="../2_data-prep/dataanalysis_datawrangler.html">
+        2.2 Data Analysis with SageMaker Data Wrangler
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/2_data-prep/dataprep_datawrangler.html" title="2.3 Data Preparation with SageMaker Data Wrangler" class="dd-item ">
+        <a href="../2_data-prep/dataprep_datawrangler.html">
+        2.3 Data Preparation with SageMaker Data Wrangler
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3_build-train.html" title="3. Build, train and tune ML models" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="../3_build-train.html">
+          3. Build, train and tune ML models
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/3_build-train/train_xgboost_model.html" title="3.1 Train an XGBoost model" class="dd-item active">
+        <a href="../3_build-train/train_xgboost_model.html">
+        3.1 Train an XGBoost model
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/3_build-train/hyperparametertune_xgboost_model.html" title="3.2 Hyperparameter tuning and bias mitigation" class="dd-item ">
+        <a href="../3_build-train/hyperparametertune_xgboost_model.html">
+        3.2 Hyperparameter tuning and bias mitigation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4_deploy.html" title="4. Deploy ML models" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../4_deploy.html">
+          4. Deploy ML models
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/4_deploy/deploy_xgboost_model.html" title="4.1 Deploy XGBoost model" class="dd-item ">
+        <a href="../4_deploy/deploy_xgboost_model.html">
+        4.1 Deploy XGBoost model
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5_end-to-end-pipeline.html" title="5. End-to-end ML Pipelines" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../5_end-to-end-pipeline.html">
+          5. End-to-end ML Pipelines
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/5_end-to-end-pipeline/end-to-end-ml-pipeline.html" title="5.1 Automating end-to-end ML pipelines" class="dd-item ">
+        <a href="../5_end-to-end-pipeline/end-to-end-ml-pipeline.html">
+        5.1 Automating end-to-end ML pipelines
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6_clean-up.html" title="6. Clean up resources" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../6_clean-up.html">
+          6. Clean up resources
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/6_clean-up/cleanup.html" title="Delete all resources" class="dd-item ">
+        <a href="../6_clean-up/cleanup.html">
+        Delete all resources
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/appendix.html" title="Appendix" class="dd-item 
+        
+        
+        
+        ">
+      <a href="../appendix.html">
+          Appendix
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/appendix/docs.html" title="Documentation resources" class="dd-item ">
+        <a href="../appendix/docs.html">
+        Documentation resources
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/appendix/resources.html" title="Technical papers" class="dd-item ">
+        <a href="../appendix/resources.html">
+        Technical papers
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/appendix/blogposts_videos.html" title="Blogposts and videos" class="dd-item ">
+        <a href="../appendix/blogposts_videos.html">
+        Blogposts and videos
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/appendix/example-profiler-report.html" title="Example profiler report" class="dd-item ">
+        <a href="../appendix/example-profiler-report.html">
+        Example profiler report
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='../'>Getting started with Amazon SageMaker Workshop</a> > <a href='../3_build-train.html'>3. Build, train and tune ML models</a> > 3.1 Train an XGBoost model
+          
+        
+          
+        
+          
+        
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#import-necessary-packages">Import necessary packages</a></li>
+<li><a href="#set-region-boto3-and-sagemaker-sdk-variables">Set region, boto3 and SageMaker SDK variables</a></li>
+<li><a href="#prepare-your-dataset">Prepare your dataset</a>
+<ul>
+<li><a href="#read-dataset-from-amazon-s3">Read dataset from Amazon S3</a></li>
+<li><a href="#drop-id-column-rename-and-reorder-label-column">Drop ID column, rename and reorder LABEL column</a></li>
+</ul></li>
+<li><a href="#split-dataframe-into-train-validation-test-sets">Split DataFrame into Train, Validation &amp; Test Sets</a></li>
+<li><a href="#train-a-model-using-xgboost">Train a model using XGBoost</a>
+<ul>
+<li><a href="#set-the-hyperparameters">Set the hyperparameters</a></li>
+<li><a href="#create-and-fit-the-estimator">Create and fit the estimator</a></li>
+</ul></li>
+<li><a href="#debugger-training-report">Debugger Training Report</a></li>
+<li><a href="#amazon-sagemaker-clarify">Amazon SageMaker Clarify</a>
+<ul>
+<li><a href="#writing-biasconfig">Writing BiasConfig</a></li>
+<li><a href="#post-training-bias">Post-training Bias</a></li>
+</ul></li>
+<li><a href="#model-lineage-tracking">Model Lineage Tracking</a>
+<ul>
+<li><a href="#training-data-artifact">Training data artifact</a></li>
+<li><a href="#model-artifact">Model artifact</a></li>
+<li><a href="#set-artifact-associations">Set artifact associations</a></li>
+<li><a href="#deposit-model-and-lineage-in-sagemaker-model-registry">Deposit Model and Lineage in SageMaker Model Registry</a></li>
+<li><a href="#create-model-package-group">Create Model Package Group</a></li>
+<li><a href="#create-and-upload-a-metrics-report">Create and upload a metrics report</a></li>
+<li><a href="#define-model-metrics">Define model metrics</a></li>
+<li><a href="#define-the-inference-spec">Define the inference spec</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>3.1 Train an XGBoost model</h1>
+          
+
+        
+
+
+
+
+
+<div class="notices info" ><p>Start this section in a new Jupyter notebook with the Data Science kernel</p>
+</div>
+
+
+<h3 id="import-necessary-packages">Import necessary packages</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> json
+<span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
+<span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> FileLink, FileLinks
+
+<span style="color:#f92672">import</span> s3fs
+<span style="color:#f92672">import</span> boto3
+
+<span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> train_test_split
+
+<span style="color:#f92672">import</span> sagemaker
+<span style="color:#f92672">from</span> sagemaker <span style="color:#f92672">import</span> clarify
+<span style="color:#f92672">from</span> sagemaker.session <span style="color:#f92672">import</span> Session
+<span style="color:#f92672">from</span> sagemaker.inputs <span style="color:#f92672">import</span> TrainingInput
+<span style="color:#f92672">from</span> sagemaker.xgboost.estimator <span style="color:#f92672">import</span> XGBoost
+<span style="color:#f92672">from</span> sagemaker.debugger <span style="color:#f92672">import</span> Rule, rule_configs</code></pre></div>
+<h3 id="set-region-boto3-and-sagemaker-sdk-variables">Set region, boto3 and SageMaker SDK variables</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#You can change this to a region of your choice</span>
+region <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>Session()<span style="color:#f92672">.</span>boto_region_name
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Using AWS Region: {}&#34;</span><span style="color:#f92672">.</span>format(region))
+
+boto3<span style="color:#f92672">.</span>setup_default_session(region_name<span style="color:#f92672">=</span>region)
+boto_session <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>Session(region_name<span style="color:#f92672">=</span>region)
+
+s3_client <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>, region_name<span style="color:#f92672">=</span>region)
+sagemaker_boto_client <span style="color:#f92672">=</span> boto_session<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sagemaker&#39;</span>)
+
+sagemaker_session <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>session<span style="color:#f92672">.</span>Session(
+    boto_session<span style="color:#f92672">=</span>boto_session,
+    sagemaker_client<span style="color:#f92672">=</span>sagemaker_boto_client)
+
+sagemaker_role <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>get_execution_role()
+account_id <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;sts&#39;</span>)<span style="color:#f92672">.</span>get_caller_identity()[<span style="color:#e6db74">&#34;Account&#34;</span>]
+
+s3 <span style="color:#f92672">=</span> s3fs<span style="color:#f92672">.</span>S3FileSystem(anon<span style="color:#f92672">=</span>False)
+
+random_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">%</span>store
+<span style="color:#f92672">%</span>store <span style="color:#f92672">-</span>r</code></pre></div>
+<h3 id="prepare-your-dataset">Prepare your dataset</h3>
+
+<h4 id="read-dataset-from-amazon-s3">Read dataset from Amazon S3</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(s3_raw_data)
+<span style="color:#66d9ef">print</span>(df<span style="color:#f92672">.</span>shape)</code></pre></div>
+<h4 id="drop-id-column-rename-and-reorder-label-column">Drop ID column, rename and reorder LABEL column</h4>
+
+
+<div class="notices note" ><p>This section implements the same steps you performed in Data Wrangler in the previous section.</p>
+</div>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># move the target column to the begining based on XGBoost</span>
+cols <span style="color:#f92672">=</span> list(df)
+cols<span style="color:#f92672">.</span>insert(<span style="color:#ae81ff">0</span>, cols<span style="color:#f92672">.</span>pop(cols<span style="color:#f92672">.</span>index(<span style="color:#e6db74">&#39;default payment next month&#39;</span>)))
+df <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>loc[:, cols]
+
+<span style="color:#75715e">#  rename to `LABEL`</span>
+df<span style="color:#f92672">.</span>rename(columns<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;default payment next month&#34;</span>: <span style="color:#e6db74">&#34;LABEL&#34;</span>}, inplace<span style="color:#f92672">=</span>True)
+df[<span style="color:#e6db74">&#39;LABEL&#39;</span>] <span style="color:#f92672">=</span> df[<span style="color:#e6db74">&#39;LABEL&#39;</span>]<span style="color:#f92672">.</span>astype(<span style="color:#e6db74">&#39;int&#39;</span>)
+
+<span style="color:#75715e"># drop feature store created columns</span>
+df <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>drop(columns<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;ID&#39;</span>])</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># store headers</span>
+header <span style="color:#f92672">=</span> list(df<span style="color:#f92672">.</span>columns)
+<span style="color:#f92672">%</span>store header</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">local_processed_path <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;{local_data_dir}/df_processed.csv&#39;</span>
+
+df<span style="color:#f92672">.</span>to_csv(local_processed_path, index<span style="color:#f92672">=</span>False)
+<span style="color:#f92672">%</span>store local_processed_path
+
+<span style="color:#66d9ef">print</span>(df<span style="color:#f92672">.</span>shape)
+df<span style="color:#f92672">.</span>head()</code></pre></div>
+<h3 id="split-dataframe-into-train-validation-test-sets">Split DataFrame into Train, Validation &amp; Test Sets</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">X_train, X_test <span style="color:#f92672">=</span> train_test_split(df, test_size<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, random_state<span style="color:#f92672">=</span>random_state)
+
+X_train, X_val <span style="color:#f92672">=</span> train_test_split(X_test, test_size<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, random_state<span style="color:#f92672">=</span>random_state)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">X_train<span style="color:#f92672">.</span>to_csv(f<span style="color:#e6db74">&#39;{local_data_dir}/train.csv&#39;</span>, header<span style="color:#f92672">=</span>False, index<span style="color:#f92672">=</span>False)
+
+response <span style="color:#f92672">=</span> sagemaker_session<span style="color:#f92672">.</span>upload_data(f<span style="color:#e6db74">&#39;{local_data_dir}/train.csv&#39;</span>,
+                                         bucket<span style="color:#f92672">=</span>default_bucket,
+                                         key_prefix<span style="color:#f92672">=</span>data_prefix)
+train_data_uri <span style="color:#f92672">=</span> response
+<span style="color:#f92672">%</span>store train_data_uri</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">X_val<span style="color:#f92672">.</span>to_csv(f<span style="color:#e6db74">&#39;{local_data_dir}/validation.csv&#39;</span>, header<span style="color:#f92672">=</span>False, index<span style="color:#f92672">=</span>False)
+
+response <span style="color:#f92672">=</span> sagemaker_session<span style="color:#f92672">.</span>upload_data(f<span style="color:#e6db74">&#39;{local_data_dir}/validation.csv&#39;</span>,
+                                         bucket<span style="color:#f92672">=</span>default_bucket,
+                                         key_prefix<span style="color:#f92672">=</span>data_prefix)
+validation_data_uri <span style="color:#f92672">=</span> response
+<span style="color:#f92672">%</span>store validation_data_uri</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">X_test<span style="color:#f92672">.</span>to_csv(f<span style="color:#e6db74">&#39;{local_data_dir}/test.csv&#39;</span>, header<span style="color:#f92672">=</span>False, index<span style="color:#f92672">=</span>False)
+
+response <span style="color:#f92672">=</span> sagemaker_session<span style="color:#f92672">.</span>upload_data(f<span style="color:#e6db74">&#39;{local_data_dir}/test.csv&#39;</span>,
+                                         bucket<span style="color:#f92672">=</span>default_bucket,
+                                         key_prefix<span style="color:#f92672">=</span>data_prefix)
+test_data_uri <span style="color:#f92672">=</span> response
+<span style="color:#f92672">%</span>store test_data_uri</code></pre></div>
+<h3 id="train-a-model-using-xgboost">Train a model using XGBoost</h3>
+
+<h4 id="set-the-hyperparameters">Set the hyperparameters</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">hyperparameters <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#34;max_depth&#34;</span>: <span style="color:#e6db74">&#34;5&#34;</span>,
+    <span style="color:#e6db74">&#34;eta&#34;</span>: <span style="color:#e6db74">&#34;0.2&#34;</span>,
+    <span style="color:#e6db74">&#34;gamma&#34;</span>: <span style="color:#e6db74">&#34;4&#34;</span>,
+    <span style="color:#e6db74">&#34;min_child_weight&#34;</span>: <span style="color:#e6db74">&#34;6&#34;</span>,
+    <span style="color:#e6db74">&#34;subsample&#34;</span>: <span style="color:#e6db74">&#34;0.7&#34;</span>,
+    <span style="color:#e6db74">&#34;objective&#34;</span>: <span style="color:#e6db74">&#34;binary:logistic&#34;</span>,
+    <span style="color:#e6db74">&#34;num_round&#34;</span>: <span style="color:#e6db74">&#34;50&#34;</span>}
+
+<span style="color:#f92672">%</span>store hyperparameters</code></pre></div>
+<h4 id="create-and-fit-the-estimator">Create and fit the estimator</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">train_instance_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+train_instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ml.m4.xlarge&#34;</span>
+content_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;text/csv&#34;</span>
+estimator_output_path <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;s3://{default_bucket}/{prefix}/training_jobs&#39;</span>
+
+<span style="color:#75715e"># this line automatically looks for the XGBoost image URI and builds an XGBoost container.</span>
+<span style="color:#75715e"># specify the repo_version depending on your preference.</span>
+xgboost_container <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>image_uris<span style="color:#f92672">.</span>retrieve(<span style="color:#e6db74">&#34;xgboost&#34;</span>, region, <span style="color:#e6db74">&#34;1.2-1&#34;</span>)
+
+rules<span style="color:#f92672">=</span>[
+    Rule<span style="color:#f92672">.</span>sagemaker(rule_configs<span style="color:#f92672">.</span>create_xgboost_report())
+]
+
+<span style="color:#75715e"># construct a SageMaker estimator that calls the xgboost-container</span>
+xgb_estimator <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>estimator<span style="color:#f92672">.</span>Estimator(image_uri<span style="color:#f92672">=</span>xgboost_container,
+                                              hyperparameters<span style="color:#f92672">=</span>hyperparameters,
+                                              role<span style="color:#f92672">=</span>sagemaker<span style="color:#f92672">.</span>get_execution_role(),
+                                              instance_count<span style="color:#f92672">=</span>train_instance_count,
+                                              instance_type<span style="color:#f92672">=</span>train_instance_type,
+                                              volume_size<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,  <span style="color:#75715e"># 5 GB</span>
+                                              output_path<span style="color:#f92672">=</span>estimator_output_path,
+                                              rules<span style="color:#f92672">=</span>rules
+                                             )</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># define the data type and paths to the training and validation datasets</span>
+train_input <span style="color:#f92672">=</span> TrainingInput(train_data_uri, content_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/csv&#34;</span>)
+validation_input <span style="color:#f92672">=</span> TrainingInput(validation_data_uri, content_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/csv&#34;</span>)
+
+<span style="color:#75715e"># execute the XGBoost training job</span>
+xgb_estimator<span style="color:#f92672">.</span>fit({<span style="color:#e6db74">&#39;train&#39;</span>: train_input,
+                   <span style="color:#e6db74">&#39;validation&#39;</span>: validation_input
+                  }
+                   )
+
+training_job_name <span style="color:#f92672">=</span> xgb_estimator<span style="color:#f92672">.</span>latest_training_job<span style="color:#f92672">.</span>job_name
+<span style="color:#f92672">%</span>store training_job_name</code></pre></div>
+<p>You should the training start in your Jupyter Notebook:
+<img src="../images/train_tune/train1.png" alt="" /></p>
+
+<p>SageMaker automatically tracks your training jobs. Click on the last option on the menu pane on the left as show in the image below. In the drop down on the top, choose <code>Experiments and trials</code>.
+Double click on Unassigned trials</p>
+
+<p>You should see 1 training job and 2 processing jobs.
+<img src="../images/train_tune/train20.png" alt="" /></p>
+
+<p><img src="../images/train_tune/train2.png" alt="" /></p>
+
+<p>After training is complete, you&rsquo;ll see the total training time and billable seconds on the jupyter notebook.
+<img src="../images/train_tune/train3.png" alt="" /></p>
+
+<p>Next we create a SageMaker model using the trained model in the previous step.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model_name <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;{training_job_name}-model&#39;</span>
+model <span style="color:#f92672">=</span> xgb_estimator<span style="color:#f92672">.</span>create_model(name<span style="color:#f92672">=</span>model_name)
+container_def <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>prepare_container_def()
+
+sagemaker_session<span style="color:#f92672">.</span>create_model(model_name,
+                     sagemaker_role,
+                     container_def)</code></pre></div>
+<h3 id="debugger-training-report">Debugger Training Report</h3>
+
+<p>Amazon SageMaker Debugger allows debugging machine learning training. Amazon SageMaker Debugger helps you to monitor your training in near real time using rules and would provide you alerts, once it has detected inconsistency in training.</p>
+
+<p>To view the debugger report, right click on the training job under <code>Experiments and trial</code> on the left pane, and click <code>Open Debugger for insights</code></p>
+
+<p>To download the report click <code>Download report</code> as shown in the screenshot below. This will download an HTML file. An example of this report is in the Appendix section of this workshop.</p>
+
+<p><img src="../images/train_tune/debug1.png" alt="" /></p>
+
+<p>You can also manually download the reports from Amazon S3 for local use.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#get name of profiler report</span>
+profiler_report_name <span style="color:#f92672">=</span> [rule[<span style="color:#e6db74">&#34;RuleConfigurationName&#34;</span>]
+                        <span style="color:#66d9ef">for</span> rule <span style="color:#f92672">in</span> xgb_estimator<span style="color:#f92672">.</span>latest_training_job<span style="color:#f92672">.</span>rule_job_summary()
+                        <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;Profiler&#34;</span> <span style="color:#f92672">in</span> rule[<span style="color:#e6db74">&#34;RuleConfigurationName&#34;</span>]][<span style="color:#ae81ff">0</span>]
+
+<span style="color:#75715e">#get name of the xgboost training report</span>
+xgb_profile_job_name <span style="color:#f92672">=</span> [rule[<span style="color:#e6db74">&#34;RuleEvaluationJobArn&#34;</span>]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;/&#34;</span>)[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+                        <span style="color:#66d9ef">for</span> rule <span style="color:#f92672">in</span> xgb_estimator<span style="color:#f92672">.</span>latest_training_job<span style="color:#f92672">.</span>rule_job_summary()
+                        <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;CreateXgboostReport&#34;</span> <span style="color:#f92672">in</span> rule[<span style="color:#e6db74">&#34;RuleConfigurationName&#34;</span>]][<span style="color:#ae81ff">0</span>]
+
+base_output_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(xgb_estimator<span style="color:#f92672">.</span>latest_job_debugger_artifacts_path())
+rule_output_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(base_output_path, <span style="color:#e6db74">&#34;rule-output/&#34;</span>)
+xgb_report_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(rule_output_path, <span style="color:#e6db74">&#34;CreateXgboostReport&#34;</span>)
+profile_report_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(rule_output_path, profiler_report_name)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">profile_report_path</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">while</span> True:
+
+    xgb_job_info <span style="color:#f92672">=</span> sagemaker_session<span style="color:#f92672">.</span>describe_processing_job(xgb_profile_job_name)
+
+    <span style="color:#66d9ef">if</span> xgb_job_info[<span style="color:#e6db74">&#34;ProcessingJobStatus&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Completed&#34;</span>:
+        <span style="color:#66d9ef">break</span>
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Job Status: {xgb_job_info[&#39;ProcessingJobStatus&#39;]}&#34;</span>)
+        time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">30</span>)
+
+s3<span style="color:#f92672">.</span>download(xgb_report_path, <span style="color:#e6db74">&#34;outputs/debugger/xgb/&#34;</span>, recursive<span style="color:#f92672">=</span>True)
+s3<span style="color:#f92672">.</span>download(profile_report_path, <span style="color:#e6db74">&#34;outputs/debugger/profiler/&#34;</span>, recursive<span style="color:#f92672">=</span>True)
+display(<span style="color:#e6db74">&#34;Click link below to view the profiler report whcih will help you identify hardware bottlenecks.&#34;</span>, FileLink(<span style="color:#e6db74">&#34;outputs/debugger/profiler/profiler-output/profiler-report.html&#34;</span>))
+display(<span style="color:#e6db74">&#34;Click link below to view the XGBoost Training reports which will help you imporve your model&#34;</span>, FileLink(<span style="color:#e6db74">&#34;outputs/debugger/xgb/xgboost_report.html&#34;</span>))</code></pre></div>
+<p>Click on the locally downloaded profiler and xgboost SageMaker debugger reports
+<img src="../images/train_tune/debug2.png" alt="" /></p>
+
+<p>Here is an example of the XGBoost Training report
+<img src="../images/train_tune/debug3.png" alt="" /></p>
+
+<h3 id="amazon-sagemaker-clarify">Amazon SageMaker Clarify</h3>
+
+<p>Now that you have your model set up. Let’s say use Amazon SageMaker Clarify to detect bias.
+SageMaker Clarify helps you detect possible pre- and post-training biases using a variety of metrics.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">clarify_processor <span style="color:#f92672">=</span> clarify<span style="color:#f92672">.</span>SageMakerClarifyProcessor(role<span style="color:#f92672">=</span>sagemaker_role,
+                                                      instance_count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+                                                      instance_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ml.m5.xlarge&#39;</span>,
+                                                      sagemaker_session<span style="color:#f92672">=</span>sagemaker_session)</code></pre></div>
+<p>A <code>DataConfig</code> object communicates some basic information about data I/O to SageMaker Clarify. We specify where to find the input dataset, where to store the output, the target column (<code>label</code>), the header names, and the dataset type.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">bias_report_output_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;s3://{}/{}/clarify-output/bias_1&#39;</span><span style="color:#f92672">.</span>format(default_bucket, prefix)
+bias_data_config <span style="color:#f92672">=</span> clarify<span style="color:#f92672">.</span>DataConfig(s3_data_input_path<span style="color:#f92672">=</span>train_data_uri,
+                                      s3_output_path<span style="color:#f92672">=</span>bias_report_output_path,
+                                      label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;LABEL&#39;</span>,
+                                      headers<span style="color:#f92672">=</span>header,
+                                      dataset_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;text/csv&#39;</span>)</code></pre></div>
+<p>A <code>ModelConfig</code> object communicates information about your trained model. To avoid additional traffic to your production models, SageMaker Clarify sets up and tears down a dedicated endpoint when processing. * instance_type and instance_count specify your preferred instance type and instance count used to run your model on during SageMaker Clarify’s processing. The testing dataset is small so a single standard instance is good enough to run this example. If your have a large complex dataset, you may want to use a better instance type to speed up, or add more instances to enable Spark parallelization. * accept_type denotes the endpoint response payload format, and content_type denotes the payload format of request to the endpoint.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model_config <span style="color:#f92672">=</span> clarify<span style="color:#f92672">.</span>ModelConfig(model_name<span style="color:#f92672">=</span>model_name,
+                                   instance_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ml.m5.xlarge&#39;</span>,
+                                   instance_count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+                                   accept_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;text/csv&#39;</span>,
+                                   content_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;text/csv&#39;</span>)</code></pre></div>
+<p>A <code>ModelPredictedLabelConfig</code> provides information on the format of your predictions. XGBoost model outputs probabilities of samples, so SageMaker Clarify invokes the endpoint then uses <code>probability_threshold</code> to convert the probability to binary labels for bias analysis. Prediction above the threshold is interpreted as label value 1 and below or equal as label value 0.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">predictions_config <span style="color:#f92672">=</span> clarify<span style="color:#f92672">.</span>ModelPredictedLabelConfig(probability_threshold<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)</code></pre></div>
+<h4 id="writing-biasconfig">Writing BiasConfig</h4>
+
+<p>SageMaker Clarify also needs information on what the sensitive columns (<code>facets</code>) are, what the sensitive features (<code>facet_values_or_threshold</code>) may be, and what the desirable outcomes are (<code>label_values_or_threshold</code>). SageMaker Clarify can handle both categorical and continuous data for <code>facet_values_or_threshold</code> and for <code>label_values_or_threshold</code>. In this case we are using categorical data.</p>
+
+<p>We specify this information in the BiasConfig API. Here we use <code>SEX</code> as the sensitive group.</p>
+
+<p>group_name is used to form subgroups for the measurement of Conditional Demographic Disparity in Labels (CDDL) and Conditional Demographic Disparity in Predicted Labels (CDDPL) with regards to Simpson’s paradox.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">bias_config <span style="color:#f92672">=</span> clarify<span style="color:#f92672">.</span>BiasConfig(label_values_or_threshold<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>],
+                                facet_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;SEX&#39;</span>,
+                                facet_values_or_threshold<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>],
+                                group_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;AGE&#39;</span>
+                                )</code></pre></div>
+<h4 id="post-training-bias">Post-training Bias</h4>
+
+<p>Computing post-training bias metrics does require a trained model.</p>
+
+<p>Unbiased training data (as determined by concepts of fairness measured by bias metric) may still result in biased model predictions after training. Whether this occurs depends on several factors including hyperparameter choices.</p>
+
+<p>You can run these options separately with <code>run_pre_training_bias()</code> and <code>run_post_training_bias()</code> or at the same time with <code>run_bias()</code> as shown below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">clarify_processor<span style="color:#f92672">.</span>run_bias(data_config<span style="color:#f92672">=</span>bias_data_config,
+                           bias_config<span style="color:#f92672">=</span>bias_config,
+                           model_config<span style="color:#f92672">=</span>model_config,
+                           model_predicted_label_config<span style="color:#f92672">=</span>predictions_config,
+                           pre_training_methods<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;all&#39;</span>,
+                           post_training_methods<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;all&#39;</span>)
+
+clarify_bias_job_1_name <span style="color:#f92672">=</span> clarify_processor<span style="color:#f92672">.</span>latest_job<span style="color:#f92672">.</span>name
+<span style="color:#f92672">%</span>store clarify_bias_job_1_name</code></pre></div>
+
+<div class="notices note" ><p>This step takes several minutes to run and generate the bias reports</p>
+</div>
+
+
+<p>After the step is finished running, you can view the reports right in SageMaker Studio
+<img src="../images/train_tune/debug4.png" alt="" /></p>
+
+<p>You can also download the reports from Amazon S3 using the code below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">s3_client<span style="color:#f92672">.</span>download_file(Bucket<span style="color:#f92672">=</span>default_bucket,
+                        Key<span style="color:#f92672">=</span>f<span style="color:#e6db74">&#39;{prefix}/clarify-output/bias_1/report.pdf&#39;</span>,
+                        Filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;./outputs/bias_1_report.pdf&#39;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Downloaded clarify report from previous Clarify job: {clarify_bias_job_1_name}&#39;</span>)
+display(<span style="color:#e6db74">&#34;Click link below to view the Clarify repot.&#34;</span>, FileLink(<span style="color:#e6db74">&#34;./outputs/bias_1_report.pdf&#34;</span>))</code></pre></div>
+<p><img src="../images/train_tune/debug5.png" alt="" />
+<img src="../images/train_tune/debug6.png" alt="" /></p>
+
+<h3 id="model-lineage-tracking">Model Lineage Tracking</h3>
+
+<p>Amazon SageMaker ML Lineage Tracking creates and stores information about the steps of a machine learning (ML) workflow from data preparation to model deployment. With the tracking information you can reproduce the workflow steps, track model and dataset lineage, and establish model governance and audit standards. With SageMaker Lineage Tracking data scientists and model builders can do the following:</p>
+
+<ul>
+<li>Keep a running history of model discovery experiments.</li>
+<li>Establish model governance by tracking model lineage artifacts for auditing and compliance verification.</li>
+<li>Clone and rerun workflows to experiment with what-if scenarios while developing models.</li>
+<li>Share a workflow that colleagues can reproduce and enhance (for example, while collaborating on solving a business problem).</li>
+
+<li><p>Clone and rerun workflows with additional debugging or logging routines, or new input variations for troubleshooting issues in production models.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">training_job_info <span style="color:#f92672">=</span> sagemaker_boto_client<span style="color:#f92672">.</span>describe_training_job(TrainingJobName<span style="color:#f92672">=</span>training_job_name)</code></pre></div></li>
+</ul>
+
+<h4 id="training-data-artifact">Training data artifact</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">training_data_s3_uri <span style="color:#f92672">=</span> training_job_info[<span style="color:#e6db74">&#39;InputDataConfig&#39;</span>][<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;DataSource&#39;</span>][<span style="color:#e6db74">&#39;S3DataSource&#39;</span>][<span style="color:#e6db74">&#39;S3Uri&#39;</span>]
+
+matching_artifacts <span style="color:#f92672">=</span> list(sagemaker<span style="color:#f92672">.</span>lineage<span style="color:#f92672">.</span>artifact<span style="color:#f92672">.</span>Artifact<span style="color:#f92672">.</span>list(
+    source_uri<span style="color:#f92672">=</span>training_data_s3_uri,
+    sagemaker_session<span style="color:#f92672">=</span>sagemaker_session))
+
+<span style="color:#66d9ef">if</span> matching_artifacts:
+    training_data_artifact <span style="color:#f92672">=</span> matching_artifacts[<span style="color:#ae81ff">0</span>]
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Using existing artifact: {training_data_artifact.artifact_arn}&#39;</span>)
+<span style="color:#66d9ef">else</span>:
+    training_data_artifact <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>lineage<span style="color:#f92672">.</span>artifact<span style="color:#f92672">.</span>Artifact<span style="color:#f92672">.</span>create(
+        artifact_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;TrainingData&#39;</span>,
+        source_uri<span style="color:#f92672">=</span>training_data_s3_uri,
+        artifact_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Dataset&#39;</span>,
+        sagemaker_session<span style="color:#f92672">=</span>sagemaker_session)
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Create artifact {training_data_artifact.artifact_arn}: SUCCESSFUL&#39;</span>)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">matching_artifacts</code></pre></div>
+<h4 id="model-artifact">Model artifact</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">trained_model_s3_uri <span style="color:#f92672">=</span> training_job_info[<span style="color:#e6db74">&#39;ModelArtifacts&#39;</span>][<span style="color:#e6db74">&#39;S3ModelArtifacts&#39;</span>]
+
+matching_artifacts <span style="color:#f92672">=</span> list(sagemaker<span style="color:#f92672">.</span>lineage<span style="color:#f92672">.</span>artifact<span style="color:#f92672">.</span>Artifact<span style="color:#f92672">.</span>list(
+    source_uri<span style="color:#f92672">=</span>trained_model_s3_uri,
+    sagemaker_session<span style="color:#f92672">=</span>sagemaker_session))
+
+<span style="color:#66d9ef">if</span> matching_artifacts:
+    model_artifact <span style="color:#f92672">=</span> matching_artifacts[<span style="color:#ae81ff">0</span>]
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Using existing artifact: {model_artifact.artifact_arn}&#39;</span>)
+<span style="color:#66d9ef">else</span>:
+    model_artifact <span style="color:#f92672">=</span> sagemaker<span style="color:#f92672">.</span>lineage<span style="color:#f92672">.</span>artifact<span style="color:#f92672">.</span>Artifact<span style="color:#f92672">.</span>create(
+        artifact_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;TrainedModel&#39;</span>,
+        source_uri<span style="color:#f92672">=</span>trained_model_s3_uri,
+        artifact_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Model&#39;</span>,
+        sagemaker_session<span style="color:#f92672">=</span>sagemaker_session)
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Create artifact {model_artifact.artifact_arn}: SUCCESSFUL&#39;</span>)</code></pre></div>
+<h4 id="set-artifact-associations">Set artifact associations</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">trial_component <span style="color:#f92672">=</span> sagemaker_boto_client<span style="color:#f92672">.</span>describe_trial_component(TrialComponentName<span style="color:#f92672">=</span>training_job_name<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;-aws-training-job&#39;</span>)
+trial_component_arn <span style="color:#f92672">=</span> trial_component[<span style="color:#e6db74">&#39;TrialComponentArn&#39;</span>]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># input artifacts</span>
+input_artifacts <span style="color:#f92672">=</span> [training_data_artifact]
+
+<span style="color:#66d9ef">for</span> a <span style="color:#f92672">in</span> input_artifacts:
+    <span style="color:#66d9ef">try</span>:
+        sagemaker<span style="color:#f92672">.</span>lineage<span style="color:#f92672">.</span>association<span style="color:#f92672">.</span>Association<span style="color:#f92672">.</span>create(
+            source_arn<span style="color:#f92672">=</span>a<span style="color:#f92672">.</span>artifact_arn,
+            destination_arn<span style="color:#f92672">=</span>trial_component_arn,
+            association_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ContributedTo&#39;</span>,
+            sagemaker_session<span style="color:#f92672">=</span>sagemaker_session)
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Association with {a.artifact_type}: SUCCEESFUL&#34;</span>)
+    <span style="color:#66d9ef">except</span>:
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Association already exists with {a.artifact_type}&#34;</span>)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># output artifacts</span>
+output_artifacts <span style="color:#f92672">=</span> [model_artifact]
+
+<span style="color:#66d9ef">for</span> a <span style="color:#f92672">in</span> output_artifacts:
+    <span style="color:#66d9ef">try</span>:
+        sagemaker<span style="color:#f92672">.</span>lineage<span style="color:#f92672">.</span>association<span style="color:#f92672">.</span>Association<span style="color:#f92672">.</span>create(
+            source_arn<span style="color:#f92672">=</span>a<span style="color:#f92672">.</span>artifact_arn,
+            destination_arn<span style="color:#f92672">=</span>trial_component_arn,
+            association_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Produced&#39;</span>,
+            sagemaker_session<span style="color:#f92672">=</span>sagemaker_session)
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Association with {a.artifact_type}: SUCCESSFUL&#34;</span>)
+    <span style="color:#66d9ef">except</span>:
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Association already exists with {a.artifact_type}&#34;</span>)</code></pre></div>
+<h4 id="deposit-model-and-lineage-in-sagemaker-model-registry">Deposit Model and Lineage in SageMaker Model Registry</h4>
+
+<h4 id="create-model-package-group">Create Model Package Group</h4>
+
+<p>A Model Package Groups holds multiple versions or iterations of a model. Though it is not required to create them for every model in the registry, they help organize various models which all have the same purpose and provide autiomatic versioning.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">mpg_name <span style="color:#f92672">=</span> prefix
+<span style="color:#f92672">%</span>store mpg_name
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Model Package Group name: {mpg_name}&#39;</span>)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">mpg_input_dict <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;ModelPackageGroupName&#39;</span>: mpg_name,
+    <span style="color:#e6db74">&#39;ModelPackageGroupDescription&#39;</span>: <span style="color:#e6db74">&#39;Credit Defualt Prediction&#39;</span>
+}</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">matching_mpg <span style="color:#f92672">=</span> sagemaker_boto_client<span style="color:#f92672">.</span>list_model_package_groups(NameContains<span style="color:#f92672">=</span>mpg_name)[<span style="color:#e6db74">&#39;ModelPackageGroupSummaryList&#39;</span>]
+
+<span style="color:#66d9ef">if</span> matching_mpg:
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Using existing Model Package Group: {mpg_name}&#39;</span>)
+<span style="color:#66d9ef">else</span>:
+    mpg_response <span style="color:#f92672">=</span> sagemaker_boto_client<span style="color:#f92672">.</span>create_model_package_group(<span style="color:#f92672">**</span>mpg_input_dict)
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Create Model Package Group {mpg_name}: SUCCESSFUL&#39;</span>)
+    <span style="color:#f92672">%</span>store mpg_name</code></pre></div>
+<h4 id="create-and-upload-a-metrics-report">Create and upload a metrics report</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model_metrics_report <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;classification_metrics&#39;</span>: {}}
+<span style="color:#66d9ef">for</span> metric <span style="color:#f92672">in</span> training_job_info[<span style="color:#e6db74">&#39;FinalMetricDataList&#39;</span>]:
+    stat <span style="color:#f92672">=</span> {metric[<span style="color:#e6db74">&#39;MetricName&#39;</span>]: {<span style="color:#e6db74">&#39;value&#39;</span>: metric[<span style="color:#e6db74">&#39;Value&#39;</span>]}}
+    model_metrics_report[<span style="color:#e6db74">&#39;classification_metrics&#39;</span>]<span style="color:#f92672">.</span>update(stat)
+
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;training_metrics.json&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> f:
+    json<span style="color:#f92672">.</span>dump(model_metrics_report, f)
+
+metrics_s3_key <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;{prefix}/training_jobs/{training_job_info[&#39;TrainingJobName&#39;]}/training_metrics.json&#34;</span>
+s3_client<span style="color:#f92672">.</span>upload_file(Filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;training_metrics.json&#39;</span>, Bucket<span style="color:#f92672">=</span>default_bucket, Key<span style="color:#f92672">=</span>metrics_s3_key)</code></pre></div>
+<h4 id="define-model-metrics">Define model metrics</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model_metrics <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;ModelQuality&#39;</span>: {
+        <span style="color:#e6db74">&#39;Statistics&#39;</span>: {
+            <span style="color:#e6db74">&#39;ContentType&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span>,
+            <span style="color:#e6db74">&#39;S3Uri&#39;</span>: f<span style="color:#e6db74">&#39;s3://{default_bucket}/{prefix}/{metrics_s3_key}&#39;</span>
+        }
+    },
+    <span style="color:#e6db74">&#39;Bias&#39;</span>: {
+        <span style="color:#e6db74">&#39;Report&#39;</span>: {
+            <span style="color:#e6db74">&#39;ContentType&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span>,
+            <span style="color:#e6db74">&#39;S3Uri&#39;</span>: f<span style="color:#e6db74">&#39;{bias_report_output_path}/analysis.json&#39;</span>
+        }
+    }
+}</code></pre></div>
+<h4 id="define-the-inference-spec">Define the inference spec</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">inference_spec <span style="color:#f92672">=</span>{    
+    <span style="color:#e6db74">&#34;InferenceSpecification&#34;</span>: {
+        <span style="color:#e6db74">&#34;Containers&#34;</span> : [{
+            <span style="color:#e6db74">&#34;Image&#34;</span>: training_job_info[<span style="color:#e6db74">&#39;AlgorithmSpecification&#39;</span>][<span style="color:#e6db74">&#39;TrainingImage&#39;</span>],
+            <span style="color:#e6db74">&#34;ModelDataUrl&#34;</span>: training_job_info[<span style="color:#e6db74">&#39;ModelArtifacts&#39;</span>][<span style="color:#e6db74">&#39;S3ModelArtifacts&#39;</span>]
+        }],
+        <span style="color:#e6db74">&#34;SupportedTransformInstanceTypes&#34;</span>: [<span style="color:#e6db74">&#34;ml.m4.xlarge&#34;</span>],
+        <span style="color:#e6db74">&#34;SupportedRealtimeInferenceInstanceTypes&#34;</span>: [<span style="color:#e6db74">&#34;ml.m4.xlarge&#34;</span>],
+        <span style="color:#e6db74">&#34;SupportedContentTypes&#34;</span>: [<span style="color:#e6db74">&#39;text/csv&#39;</span>],
+        <span style="color:#e6db74">&#34;SupportedResponseMIMETypes&#34;</span>: [<span style="color:#e6db74">&#39;text/csv&#39;</span>]
+    }
+}</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">mp_input_dict <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;ModelPackageGroupName&#39;</span>: mpg_name,
+    <span style="color:#e6db74">&#39;ModelPackageDescription&#39;</span>: <span style="color:#e6db74">&#39;XGBoost classifier to detect insurance fraud.&#39;</span>,
+    <span style="color:#e6db74">&#39;ModelApprovalStatus&#39;</span>: <span style="color:#e6db74">&#39;PendingManualApproval&#39;</span>,
+    <span style="color:#e6db74">&#39;ModelMetrics&#39;</span>: model_metrics
+}
+
+mp_input_dict<span style="color:#f92672">.</span>update(inference_spec)
+mp1_response <span style="color:#f92672">=</span> sagemaker_boto_client<span style="color:#f92672">.</span>create_model_package(<span style="color:#f92672">**</span>mp_input_dict)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">mp_info <span style="color:#f92672">=</span> sagemaker_boto_client<span style="color:#f92672">.</span>describe_model_package(ModelPackageName<span style="color:#f92672">=</span>mp1_response[<span style="color:#e6db74">&#39;ModelPackageArn&#39;</span>])
+mp_status <span style="color:#f92672">=</span> mp_info[<span style="color:#e6db74">&#39;ModelPackageStatus&#39;</span>]
+
+<span style="color:#66d9ef">while</span> mp_status <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> [<span style="color:#e6db74">&#39;Completed&#39;</span>, <span style="color:#e6db74">&#39;Failed&#39;</span>]:
+    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">5</span>)
+    mp_info <span style="color:#f92672">=</span> sagemaker_boto_client<span style="color:#f92672">.</span>describe_model_package(ModelPackageName<span style="color:#f92672">=</span>mp1_response[<span style="color:#e6db74">&#39;ModelPackageArn&#39;</span>])
+    mp_status <span style="color:#f92672">=</span> mp_info[<span style="color:#e6db74">&#39;ModelPackageStatus&#39;</span>]
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;model package status: {mp_status}&#39;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;model package status: {mp_status}&#39;</span>)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># view model package in registry</span>
+sagemaker_boto_client<span style="color:#f92672">.</span>list_model_packages(ModelPackageGroupName<span style="color:#f92672">=</span>mpg_name)[<span style="color:#e6db74">&#39;ModelPackageSummaryList&#39;</span>]</code></pre></div>
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+        
+            <a class="nav nav-prev" href="../3_build-train.html" title="3. Build, train and tune ML models"> <i class="fas fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="../3_build-train/hyperparametertune_xgboost_model.html" title="3.2 Hyperparameter tuning and bias mitigation" style="margin-right: 0px;"><i class="fas fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="../js/clipboard.min.js?1619168107"></script>
+    <script src="../js/perfect-scrollbar.min.js?1619168107"></script>
+    <script src="../js/perfect-scrollbar.jquery.min.js?1619168107"></script>
+    <script src="../js/jquery.sticky.js?1619168107"></script>
+    <script src="../js/featherlight.min.js?1619168107"></script>
+    <script src="../js/highlight.pack.js?1619168107"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../js/modernizr.custom-3.6.0.js?1619168107"></script>
+    <script src="../js/learn.js?1619168107"></script>
+    <script src="../js/hugo-learn.js?1619168107"></script>
+
+    <link href="../mermaid/mermaid.css?1619168107" type="text/css" rel="stylesheet" />
+    <script src="../mermaid/mermaid.min.js?1619168107"></script>
+    <script>
+	var config = {
+        startOnLoad:true,
+        flowchart:{
+	    curve:'basis'
+        }
+      };
+        mermaid.initialize(config);
+    </script>
+    
+
+<script type="text/javascript" src="https://eventbox.dev/js/injectOverlay.js"></script>
+  </body>
+</html>
+

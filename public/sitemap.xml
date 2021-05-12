@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/2_data-prep/dataprep_studio_notebook.html</loc>
+  </url>
+  
+  <url>
+    <loc>/3_build-train/train_xgboost_model.html</loc>
+  </url>
+  
+  <url>
+    <loc>/4_deploy/deploy_xgboost_model.html</loc>
+  </url>
+  
+  <url>
+    <loc>/appendix/docs.html</loc>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+  </url>
+  
+  <url>
+    <loc>/0_introduction.html</loc>
+  </url>
+  
+  <url>
+    <loc>/1_setup/studio_setup.html</loc>
+  </url>
+  
+  <url>
+    <loc>/0_introduction/interface_overview.html</loc>
+  </url>
+  
+  <url>
+    <loc>/1_setup.html</loc>
+  </url>
+  
+  <url>
+    <loc>/2_data-prep/dataanalysis_datawrangler.html</loc>
+  </url>
+  
+  <url>
+    <loc>/3_build-train/hyperparametertune_xgboost_model.html</loc>
+  </url>
+  
+  <url>
+    <loc>/1_setup/create_notebook.html</loc>
+  </url>
+  
+  <url>
+    <loc>/0_introduction/content_overview.html</loc>
+  </url>
+  
+  <url>
+    <loc>/2_data-prep.html</loc>
+  </url>
+  
+  <url>
+    <loc>/2_data-prep/dataprep_datawrangler.html</loc>
+  </url>
+  
+  <url>
+    <loc>/5_end-to-end-pipeline/end-to-end-ml-pipeline.html</loc>
+  </url>
+  
+  <url>
+    <loc>/6_clean-up/cleanup.html</loc>
+  </url>
+  
+  <url>
+    <loc>/3_build-train.html</loc>
+  </url>
+  
+  <url>
+    <loc>/4_deploy.html</loc>
+  </url>
+  
+  <url>
+    <loc>/appendix/resources.html</loc>
+  </url>
+  
+  <url>
+    <loc>/5_end-to-end-pipeline.html</loc>
+  </url>
+  
+  <url>
+    <loc>/appendix/blogposts_videos.html</loc>
+  </url>
+  
+  <url>
+    <loc>/appendix/example-profiler-report.html</loc>
+  </url>
+  
+  <url>
+    <loc>/6_clean-up.html</loc>
+  </url>
+  
+  <url>
+    <loc>/appendix.html</loc>
+  </url>
+  
+  <url>
+    <loc>/categories.html</loc>
+  </url>
+  
+  <url>
+    <loc>/tags.html</loc>
+  </url>
+  
+</urlset>

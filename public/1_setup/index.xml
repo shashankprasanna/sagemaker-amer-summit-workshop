@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>1. Setup on Getting Started with Amazon SageMaker Studio</title>
+    <link>/1_setup.html</link>
+    <description>Recent content in 1. Setup on Getting Started with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/1_setup/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Setup Amazon SageMaker Studio</title>
+      <link>/1_setup/studio_setup.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1_setup/studio_setup.html</guid>
+      <description>Step 1. Log in to the Amazon SageMaker console  Visit the Amazon SageMaker webpage and click on Get Started with SageMaker to be directed to the Amazon SageMaker console.  Step 2. Set up Amazon SageMaker Studio In this step, you&amp;#39;ll setup Amazon SageMaker Studio. The SageMaker Studio Notebooks within Studio are one-click Jupyter notebooks and contain everything you need to build and test your training scripts. Studio also includes experiment tracking and visualization so that it&amp;#39;s easy to manage your entire machine learning workflow in one place.</description>
+    </item>
+    
+    <item>
+      <title>Create your first Studio notebook</title>
+      <link>/1_setup/create_notebook.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1_setup/create_notebook.html</guid>
+      <description>Once you launch SageMaker Studio create a new folder to save all your workshop notebooks. Double click and navigate into your folder and then click on File &amp;gt; New &amp;gt; Notebook to launch a new Jupyter Notebook Select Python 3 (Data Science) as the notebook kernel. You should see a new Jupyter notebook open. You&amp;rsquo;ll need to wait for a few minutes while Studio launches an instance in the backend to run the notebook.</description>
+    </item>
+    
+  </channel>
+</rss>

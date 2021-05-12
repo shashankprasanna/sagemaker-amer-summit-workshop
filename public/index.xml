@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Getting started with Amazon SageMaker Workshop on Getting Started with Amazon SageMaker Studio</title>
+    <link>/</link>
+    <description>Recent content in Getting started with Amazon SageMaker Workshop on Getting Started with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2.1 Data Preparation with Amazon SageMaker Studio Notebook</title>
+      <link>/2_data-prep/dataprep_studio_notebook.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/2_data-prep/dataprep_studio_notebook.html</guid>
+      <description>How to run this section To run this section of the workshop, read the instruction above each code cell, copy the code and paste it in the Jupyter notebook cell, and click run to execute the code.
+Data preparation with SageMaker Studio Notebook Import required libraries # Importing required libraries. import pandas as pd import numpy as np import seaborn as sns #visualisation import matplotlib.pyplot as plt #visualisation %matplotlib inline sns.</description>
+    </item>
+    
+    <item>
+      <title>3.1 Train an XGBoost model</title>
+      <link>/3_build-train/train_xgboost_model.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/3_build-train/train_xgboost_model.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ Import necessary packages import os import json import time import pandas as pd from IPython.display import FileLink, FileLinks import s3fs import boto3 from sklearn.model_selection import train_test_split import sagemaker from sagemaker import clarify from sagemaker.session import Session from sagemaker.inputs import TrainingInput from sagemaker.xgboost.estimator import XGBoost from sagemaker.debugger import Rule, rule_configs Set region, boto3 and SageMaker SDK variables #You can change this to a region of your choice region = sagemaker.</description>
+    </item>
+    
+    <item>
+      <title>4.1 Deploy XGBoost model</title>
+      <link>/4_deploy/deploy_xgboost_model.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/4_deploy/deploy_xgboost_model.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ Import necessary packages import json import time import s3fs import boto3 import pandas as pd import sagemaker from sagemaker.s3 import S3Downloader from sagemaker.model_monitor.dataset_format import DatasetFormat from sagemaker.model_monitor import DataCaptureConfig, DefaultModelMonitor# Set region, boto3 and SageMaker SDK variables¶ #You can change this to a region of your choice region = sagemaker.Session().boto_region_name print(&amp;#34;Using AWS Region: {}&amp;#34;.format(region)) boto3.setup_default_session(region_name=region) boto_session = boto3.</description>
+    </item>
+    
+    <item>
+      <title>Documentation resources</title>
+      <link>/appendix/docs.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/appendix/docs.html</guid>
+      <description>1. SageMaker SDK API guide https://sagemaker.readthedocs.io/en/stable/
+2. SageMaker Sample Notebooks on GitHub https://github.com/awslabs/amazon-sagemaker-examples
+3. SageMaker Developer Guide https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html
+4. SageMaker API Reference https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Service.html</description>
+    </item>
+    
+    <item>
+      <title>Setup Amazon SageMaker Studio</title>
+      <link>/1_setup/studio_setup.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1_setup/studio_setup.html</guid>
+      <description>Step 1. Log in to the Amazon SageMaker console  Visit the Amazon SageMaker webpage and click on Get Started with SageMaker to be directed to the Amazon SageMaker console.  Step 2. Set up Amazon SageMaker Studio In this step, you&amp;#39;ll setup Amazon SageMaker Studio. The SageMaker Studio Notebooks within Studio are one-click Jupyter notebooks and contain everything you need to build and test your training scripts. Studio also includes experiment tracking and visualization so that it&amp;#39;s easy to manage your entire machine learning workflow in one place.</description>
+    </item>
+    
+    <item>
+      <title>Workshop Interface Overview</title>
+      <link>/0_introduction/interface_overview.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/0_introduction/interface_overview.html</guid>
+      <description>   </description>
+    </item>
+    
+    <item>
+      <title>2.2 Data Analysis with SageMaker Data Wrangler</title>
+      <link>/2_data-prep/dataanalysis_datawrangler.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/2_data-prep/dataanalysis_datawrangler.html</guid>
+      <description>Amazon SageMaker Data Wrangler reduces the time it takes to aggregate and prepare data for machine learning (ML). With SageMaker Data Wrangler, you can simplify the process of data preparation and feature engineering, and complete each step of the data preparation workflow, including data selection, cleansing, exploration, and visualization from a single visual interface.
+In this section we&amp;rsquo;ll use Data Wrangler to generate bias reports and pre-process our training dataset.</description>
+    </item>
+    
+    <item>
+      <title>3.2 Hyperparameter tuning and bias mitigation</title>
+      <link>/3_build-train/hyperparametertune_xgboost_model.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/3_build-train/hyperparametertune_xgboost_model.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ In this section we&amp;rsquo;ll train a second model fix the gender imbalance in the dataset using SMOTE and train the model using XGBoost with hyperparameter tuning and Debugger. We will also save this modelto our registry and eventually approved for deployment.
+Import necessary packages !pip install imbalanced-learn==0.7.0 -qimport json import boto3 import numpy as np import pandas as pd import matplotlib.</description>
+    </item>
+    
+    <item>
+      <title>Create your first Studio notebook</title>
+      <link>/1_setup/create_notebook.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1_setup/create_notebook.html</guid>
+      <description>Once you launch SageMaker Studio create a new folder to save all your workshop notebooks. Double click and navigate into your folder and then click on File &amp;gt; New &amp;gt; Notebook to launch a new Jupyter Notebook Select Python 3 (Data Science) as the notebook kernel. You should see a new Jupyter notebook open. You&amp;rsquo;ll need to wait for a few minutes while Studio launches an instance in the backend to run the notebook.</description>
+    </item>
+    
+    <item>
+      <title>Workshop Content Overview</title>
+      <link>/0_introduction/content_overview.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/0_introduction/content_overview.html</guid>
+      <description>   </description>
+    </item>
+    
+    <item>
+      <title>2.3 Data Preparation with SageMaker Data Wrangler</title>
+      <link>/2_data-prep/dataprep_datawrangler.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/2_data-prep/dataprep_datawrangler.html</guid>
+      <description>You can also use Data Wrangler to perform a number of dataset transformations visually without writing any code. Operations include encoding categorical variables, featurizing date/time and text columns, handling missing data, manipulating columns (renaming, moving), managing rows, validating strings etc.
+Let&amp;rsquo;s start by launching the transform view You should see a full list of transformations available to you on the right. We&amp;rsquo;ll peform the following 3 transformations
+ Remove the ID column as it&amp;rsquo;s not informative when building an ML model Rename the label column from default payment next month to a more readable LABEL Move the label to the first column position, since this is the format our ML algorithm expects during training  Drop the ID column Click on Manage columns &amp;gt; Transform &amp;gt; Drop Column and choose ID under Column to drop.</description>
+    </item>
+    
+    <item>
+      <title>5.1 Automating end-to-end ML pipelines</title>
+      <link>/5_end-to-end-pipeline/end-to-end-ml-pipeline.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/5_end-to-end-pipeline/end-to-end-ml-pipeline.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ import json import time import pathlib import numpy as np import pandas as pd from time import gmtime, strftime import boto3 import sagemaker from sagemaker.inputs import TrainingInput from sagemaker.processing import ProcessingInput, ProcessingOutput, FeatureStoreOutput from sagemaker.workflow.pipeline import Pipeline from sagemaker.sklearn.processing import SKLearnProcessor from sagemaker.workflow.step_collections import RegisterModel from sagemaker.feature_store.feature_group import FeatureGroup from sagemaker.workflow.parameters import ParameterInteger, ParameterFloat, ParameterString from sagemaker.</description>
+    </item>
+    
+    <item>
+      <title>Delete all resources</title>
+      <link>/6_clean-up/cleanup.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/6_clean-up/cleanup.html</guid>
+      <description>Start this section in a new Jupyter notebook with the Data Science kernel
+ After running the workshop, you can remove the resources which you created using this helper function.
+First download the helper function. In a new cell execute the following.
+!wget https://raw.githubusercontent.com/shashankprasanna/sagemaker-workshop-2021/main/notebooks/04_e2e_pipeline/utils.py%store -r Run the following command to delete all your project resources. You can also delete all the objects in the project&amp;rsquo;s S3 directory by passing the keyword argument delete_s3_objects=True.</description>
+    </item>
+    
+    <item>
+      <title>Technical papers</title>
+      <link>/appendix/resources.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/appendix/resources.html</guid>
+      <description> 1. Whitepaper on AI Fairness https://pages.awscloud.com/rs/112-TZM-766/images/Amazon.AI.Fairness.and.Explainability.Whitepaper.pdf 2. Paper on Debugging ML models https://www.amazon.science/publications/amazon-sagemaker-debugger-a-system-for-real-time-insights-into-machine-learning-model-training </description>
+    </item>
+    
+    <item>
+      <title>Blogposts and videos</title>
+      <link>/appendix/blogposts_videos.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/appendix/blogposts_videos.html</guid>
+      <description> 1. ML blog posts https://medium.com/@shashankprasanna 2. SageMaker Clarify Interview at re:invent 2020 with Principal Scientist at AWS AI   3. SageMaker Debugger Interview at re:invent 2020 with Principal PM at AWS AI   4. AWS Blog posts https://aws.amazon.com/blogs/machine-learning/ </description>
+    </item>
+    
+    <item>
+      <title>Example profiler report</title>
+      <link>/appendix/example-profiler-report.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/appendix/example-profiler-report.html</guid>
+      <description>profiler-report
+  /*! * * Twitter Bootstrap * */ /*! * Bootstrap v3.3.7 (http://getbootstrap.com) * Copyright 2011-2016 Twitter, Inc. * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */ /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */ html { font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; } body { margin: 0; } article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; } audio, canvas, progress, video { display: inline-block; vertical-align: baseline; } audio:not([controls]) { display: none; height: 0; } [hidden], template { display: none; } a { background-color: transparent; } a:active, a:hover { outline: 0; } abbr[title] { border-bottom: 1px dotted; } b, strong { font-weight: bold; } dfn { font-style: italic; } h1 { font-size: 2em; margin: 0.</description>
+    </item>
+    
+  </channel>
+</rss>
