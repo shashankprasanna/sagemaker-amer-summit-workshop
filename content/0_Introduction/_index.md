@@ -1,9 +1,9 @@
 ---
-title: "Introduction Videos"
+title: "Workshop Interface Overview"
 chapter: false
 weight: 1
 pre: '<i class="fa fa-film" aria-hidden="true"></i> '
 ---
 
-
-In this section you'll find videos that give you an overview of the workshop interface as well as the workshop content we'll be covering today.
+Watch this short video at anytime to familiarize yourself with the workshop interface.
+{{< youtube MsXU3XQFfrw >}}

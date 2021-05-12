@@ -1,5 +1,5 @@
 RelativeURLs=true
-##baseURL = disabled
+###baseURL = disabled
 languageCode = "en-us"
 defaultContentLanguage = "en"
 title = "Getting Started with Amazon SageMaker Studio"

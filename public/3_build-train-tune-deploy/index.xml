@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>3. Build, train and tune models with SageMaker built-in algorithms on Getting Started with Amazon SageMaker Studio</title>
+    <link>/3_build-train-tune-deploy.html</link>
+    <description>Recent content in 3. Build, train and tune models with SageMaker built-in algorithms on Getting Started with Amazon SageMaker Studio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/3_build-train-tune-deploy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>3.1 Train, tune and deploy an XGBoost model</title>
+      <link>/3_build-train-tune-deploy/train_xgboost_model.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/3_build-train-tune-deploy/train_xgboost_model.html</guid>
+      <description>Import required libraries including SageMaker Python SDK import time import json import numpy as np import pandas as pd import matplotlib.pyplot as plt from time import gmtime, strftime from IPython.display import FileLink, FileLinks from sklearn.metrics import classification_report from sklearn.model_selection import train_test_split from sklearn.metrics import roc_curve, roc_auc_score import boto3 import sagemaker from sagemaker import clarify from sagemaker.inputs import TrainingInput from sagemaker.transformer import Transformer from sagemaker.tuner import IntegerParameter, ContinuousParameter, HyperparameterTuner Update SageMaker SDK if necessary if int(sagemaker.</description>
+    </item>
+    
+  </channel>
+</rss>

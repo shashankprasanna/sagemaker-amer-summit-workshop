@@ -3,15 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/2_data-prep/dataprep_studio_notebook.html</loc>
+    <loc>/1_setup/login_aws_account.html</loc>
   </url>
   
   <url>
-    <loc>/3_build-train/train_xgboost_model.html</loc>
+    <loc>/2_sagemaker_autopilot/dataprep_studio_notebook.html</loc>
   </url>
   
   <url>
-    <loc>/4_deploy/deploy_xgboost_model.html</loc>
+    <loc>/3_build-train-tune-deploy/train_xgboost_model.html</loc>
   </url>
   
   <url>
@@ -27,63 +27,31 @@
   </url>
   
   <url>
-    <loc>/1_setup/studio_setup.html</loc>
-  </url>
-  
-  <url>
-    <loc>/0_introduction/interface_overview.html</loc>
-  </url>
-  
-  <url>
     <loc>/1_setup.html</loc>
   </url>
   
   <url>
-    <loc>/2_data-prep/dataanalysis_datawrangler.html</loc>
+    <loc>/1_setup/download_workshop_content.html</loc>
   </url>
   
   <url>
-    <loc>/3_build-train/hyperparametertune_xgboost_model.html</loc>
+    <loc>/2_sagemaker_autopilot/autopilot-workflow.html</loc>
   </url>
   
   <url>
-    <loc>/1_setup/create_notebook.html</loc>
+    <loc>/2_sagemaker_autopilot.html</loc>
   </url>
   
   <url>
-    <loc>/0_introduction/content_overview.html</loc>
+    <loc>/4_clean-up/cleanup.html</loc>
   </url>
   
   <url>
-    <loc>/2_data-prep.html</loc>
-  </url>
-  
-  <url>
-    <loc>/2_data-prep/dataprep_datawrangler.html</loc>
-  </url>
-  
-  <url>
-    <loc>/5_end-to-end-pipeline/end-to-end-ml-pipeline.html</loc>
-  </url>
-  
-  <url>
-    <loc>/6_clean-up/cleanup.html</loc>
-  </url>
-  
-  <url>
-    <loc>/3_build-train.html</loc>
-  </url>
-  
-  <url>
-    <loc>/4_deploy.html</loc>
+    <loc>/3_build-train-tune-deploy.html</loc>
   </url>
   
   <url>
     <loc>/appendix/resources.html</loc>
-  </url>
-  
-  <url>
-    <loc>/5_end-to-end-pipeline.html</loc>
   </url>
   
   <url>
@@ -95,7 +63,7 @@
   </url>
   
   <url>
-    <loc>/6_clean-up.html</loc>
+    <loc>/4_clean-up.html</loc>
   </url>
   
   <url>
